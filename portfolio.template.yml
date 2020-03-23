@@ -1,0 +1,156 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Provisioning resources to be used for portfolio.kconley.com"
+Parameters:
+  BucketName:
+    Type: String
+    Default: portfolio.kconley.com
+    Description: S3 Bucket Name
+  DomainBase:
+    Type: String
+    Default: kconley.com
+    Description: Base domain for stack
+  DomainPrefix:
+    Type: String
+    Default: portfolio
+    Description: Prefix to host specific website on domain
+
+Resources:
+
+  FrontEndBucket:
+    Type: AWS::S3::Bucket
+    Properties: 
+      BucketName: !Ref BucketName
+      PublicAccessBlockConfiguration: 
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration: 
+        IndexDocument: index.html
+
+  FrontEndBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties: 
+      Bucket: !Ref FrontEndBucket
+      PolicyDocument:
+        Statement:
+          -
+            Action:
+              - "s3:GetObject"
+            Effect: "Allow"
+            Resource: 
+              !Sub 'arn:aws:s3:::${BucketName}/*'
+            Principal: "*"
+            Condition:
+              StringLike:
+                aws:Referer:
+                  - "*.kconley.com/*"
+
+# # Route53 Cloudfront Certificate resources
+
+#   PortfolioHostedZone:
+#     Type: AWS::Route53::HostedZone
+#     Properties:
+#       Name: !Sub '${DomainPrefix}.${DomainName}'
+
+
+#   PortfolioRecordSet:
+#     Type: AWS::Route53::RecordSet
+#     Properties:
+#       Name: !Ref DomainPrefix
+#       Type: A
+#       AliasTarget: !GetAtt PortfolioDistribution.DomainName
+
+
+#   PortfolioDistribution: 
+#     Type: AWS::CloudFront::Distribution
+#     Properties:
+#       DistributionConfig:
+#         Origins:
+#           DomainName: !Sub ${DomainPrefix}.${DomainName}.s3.amazonaws.com
+#           S3OriginConfig: 
+#             OriginAccessIdentity: 
+#           Id: !Sub S3-${DomainPrefix}.${DomainName}
+#         DefaultCacheBehavior:
+#           TargetOriginId: !Sub S3-${DomainPrefix}.${DomainName}
+#           ViewerProtocolPolicy: redirect-to-https
+#           DefaultTTL: 60
+#         DefaultRootObject: index.html
+#         ViewerCertificate:
+#           SslSupportMethod: sni-only
+
+
+
+
+# # Looks lik stack creation will pause on the certificate until you go and update 
+# # route 53 with the CNAME record set for DNS validation
+#   DomainCertificate:
+#     Type: AWS::CertificateManager::Certificate
+#     Properties:
+#       DomainName: !Sub '*.${DomainName}'
+#       DomainValidationOptions:
+#         - DomainName: !Sub '*.${DomainName}'
+#           ValidationDomain: !Ref DomainName
+#       ValidationMethod: DNS
+
+# might skip the DNS stuff since it should really never change once we are up and running
+
+  PortfolioCodeBuild:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      ServiceRole: !GetAtt CodeBuildRole.Arn
+      Artifacts:
+        Type: 'S3'
+      Environment:
+        ComputeType: BUILD_GENERAL1_SMALL
+        Image: aws/codebuild/standard:4.0
+        Type: LINUX_CONTAINER
+      Source:
+        Location: 
+        Type: GITHUB
+        Auth:
+          Type: OAUTH
+
+
+
+  CodeBuildBucket:
+    Type: AWS::S3::Bucket
+    Properties: 
+      BucketName: !Sub build-${BucketName}
+      PublicAccessBlockConfiguration: 
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration: 
+        IndexDocument: index.html
+
+  CodeBuildBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties: 
+      Bucket: !Ref CodeBuildBucket
+      PolicyDocument:
+        Statement:
+          -
+            Action:
+              - "s3:*"
+            Effect: "Allow"
+            Resource: 
+              !Sub 'arn:aws:s3:::${BucketName}/*'
+            Principal: "*"
+
+
+
+# WIP 
+  CodeBuildRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+              - codebuild.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
