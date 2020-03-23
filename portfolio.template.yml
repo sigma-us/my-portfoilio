@@ -13,6 +13,13 @@ Parameters:
     Type: String
     Default: portfolio
     Description: Prefix to host specific website on domain
+  GitHubRepoCloneLink:
+    Type: String
+    Default: https://github.com/sigma-us/my-portfoilio.git
+    Description: GitHub Clone Url for codebuild project
+  GitHubToken:
+    Type: String
+    Description: Personal token from github to allow codebuild access to github (use secrets manager per aws recommendation)
 
 Resources:
 
@@ -98,19 +105,29 @@ Resources:
   PortfolioCodeBuild:
     Type: AWS::CodeBuild::Project
     Properties:
+      Name: !Sub ${DomainPrefix}_build
       ServiceRole: !GetAtt CodeBuildRole.Arn
       Artifacts:
-        Type: 'S3'
+        Location: !Ref CodeBuildBucket
+        Type: S3
+        Name: !Sub ${DomainPrefix}build.zip
       Environment:
         ComputeType: BUILD_GENERAL1_SMALL
         Image: aws/codebuild/standard:4.0
         Type: LINUX_CONTAINER
       Source:
-        Location: 
+        Location: !Ref GitHubRepoCloneLink
         Type: GITHUB
         Auth:
+          Resource: !Ref GitHubAuthInfo
           Type: OAUTH
 
+  GitHubAuthInfo:
+    Type: AWS::CodeBuild::SourceCredential
+    Properties:
+      ServerType: GITHUB
+      Token: !Ref GitHubToken
+      AuthType: PERSONAL_ACCESS_TOKEN
 
 
   CodeBuildBucket:
@@ -136,7 +153,7 @@ Resources:
               - "s3:*"
             Effect: "Allow"
             Resource: 
-              !Sub 'arn:aws:s3:::${BucketName}/*'
+              !Sub 'arn:aws:s3:::build-${BucketName}/*'
             Principal: "*"
 
 
