@@ -106,7 +106,7 @@ Resources:
     Type: AWS::CodeBuild::Project
     Properties:
       Name: !Sub ${DomainPrefix}_build
-      ServiceRole: !GetAtt CodeBuildRole.Arn
+      ServiceRole: !GetAtt StackRole.Arn
       Artifacts:
         Location: !Ref CodeBuildBucket
         Type: S3
@@ -159,9 +159,10 @@ Resources:
 
 
 # WIP 
-  CodeBuildRole:
+  StackRole:
     Type: AWS::IAM::Role
     Properties:
+      RoleName: !Sub stack_${AWS::StackName}
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -171,3 +172,20 @@ Resources:
               - codebuild.amazonaws.com
             Action:
               - 'sts:AssumeRole'
+      Path: /
+      Policies:
+        - PolicyName: !Sub 'stack_${AWS::StackName}'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Resource: !Sub 'arn:aws:s3:::build-${BucketName}/*'
+                Action: 
+                  - 's3:PutObject'
+              - Effect: Allow
+                Resource: 'arn:aws:logs:*:*:*'
+                Action:
+                  - 'logs:CreateLogGroup'
+                  - 'logs:CreateLogStream'
+                  - 'logs:PutLogEvents'
+
