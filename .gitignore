@@ -106,3 +106,5 @@ dist
 
 *.sh
 portfolio.params.json
+build
+.DS_Store

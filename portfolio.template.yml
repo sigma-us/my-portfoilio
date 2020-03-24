@@ -108,6 +108,7 @@ Resources:
       Name: !Sub ${DomainPrefix}_build
       ServiceRole: !GetAtt StackRole.Arn
       Artifacts:
+        Packaging: ZIP
         Location: !Ref CodeBuildBucket
         Type: S3
         Name: !Sub ${DomainPrefix}build.zip
