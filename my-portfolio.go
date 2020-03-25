@@ -25,11 +25,13 @@ const (
 )
 
 
-type MyEvent struct {
-    Name string `json:"name"`
-}
+// type MyEvent struct {
+//     Name string `json:"name"`
+// }
 
-func HandleRequest(ctx context.Context, name MyEvent) (string, error) {
+
+
+func HandleRequest(ctx context.Context) (string, error) {
     sess, _ := session.NewSession(&aws.Config{Region: aws.String("us-east-1")})
 	downloader := s3manager.NewDownloader(sess)
 
@@ -80,9 +82,7 @@ func HandleRequest(ctx context.Context, name MyEvent) (string, error) {
 }
 
 
-func main() {
-	lambda.Start(HandleRequest)
-}
+
 
 // exists returns whether the given file or directory exists
 func exists(path string) (bool, error) {
@@ -181,4 +181,9 @@ func Unzip(src string, dest string) ([]string, error) {
         }
     }
     return filenames, nil
+}
+
+func main() {
+    log.Print("main")
+	lambda.Start(HandleRequest)
 }
