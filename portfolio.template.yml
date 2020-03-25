@@ -20,6 +20,10 @@ Parameters:
   GitHubToken:
     Type: String
     Description: Personal token from github to allow codebuild access to github (use secrets manager per aws recommendation)
+  LambdaCodeBucket:
+    Type: String
+    Default: kyle-lambda-code
+    Description: Globally used bucket for lambda code
 
 Resources:
 
@@ -157,7 +161,26 @@ Resources:
               !Sub 'arn:aws:s3:::build-${BucketName}/*'
             Principal: "*"
 
-
+  CodeBuildLambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: !Sub '${AWS::StackName}_code-build'
+      Description: Unzips and uploads front end files to portfolio bucket
+      Handler: !Ref AWS::StackName
+      Role: !GetAtt 
+        - StackRole
+        - Arn
+      Environment:
+        Variables:
+          BUILD_BUCKET: !Ref CodeBuildBucket
+          PORTFOLIO_BUCKET: !Ref FrontEndBucket
+      MemorySize: 128
+      Timeout: 30
+      Runtime: go1.x
+      Code:
+        S3Bucket: !Ref LambdaCodeBucket
+        S3Key: !Sub '${AWS::StackName}.zip'
+      
 
 # WIP 
   StackRole:
@@ -171,6 +194,7 @@ Resources:
             Principal:
               Service:
               - codebuild.amazonaws.com
+              - lambda.amazonaws.com
             Action:
               - 'sts:AssumeRole'
       Path: /
@@ -180,9 +204,12 @@ Resources:
             Version: '2012-10-17'
             Statement:
               - Effect: Allow
-                Resource: !Sub 'arn:aws:s3:::build-${BucketName}/*'
+                Resource: 
+                  - !Sub 'arn:aws:s3:::build-${BucketName}/*'
+                  - !Sub 'arn:aws:s3:::${BucketName}/*'
+                  - !Sub 'arn:aws:s3:::${LambdaCodeBucket}/*'
                 Action: 
-                  - 's3:PutObject'
+                  - 's3:*'
               - Effect: Allow
                 Resource: 'arn:aws:logs:*:*:*'
                 Action:

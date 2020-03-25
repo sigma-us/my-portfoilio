@@ -6,7 +6,6 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
     "github.com/aws/aws-sdk-go/service/s3/s3manager"
     "github.com/aws/aws-lambda-go/lambda"
-    "context"
 	"archive/zip"
     "fmt"
     "io"
@@ -31,7 +30,7 @@ const (
 
 
 
-func HandleRequest(ctx context.Context) (string, error) {
+func HandleRequest() (string, error) {
     sess, _ := session.NewSession(&aws.Config{Region: aws.String("us-east-1")})
 	downloader := s3manager.NewDownloader(sess)
 
