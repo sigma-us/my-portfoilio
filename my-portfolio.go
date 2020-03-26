@@ -34,15 +34,15 @@ func HandleRequest() (string, error) {
     sess, _ := session.NewSession(&aws.Config{Region: aws.String("us-east-1")})
 	downloader := s3manager.NewDownloader(sess)
 
-	f, err := os.Create("package.zip")
+	f, err := os.Create("/tmp/package.zip")
 	if err != nil {
         log.Fatal(err)
 	}
 	defer f.Close()
 
-	exists, err := exists("output")
+	exists, err := exists("/tmp/output")
 	if !exists {
-		err = os.Mkdir("output", 0755)
+		err = os.Mkdir("/tmp/output", 0755)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -57,7 +57,7 @@ func HandleRequest() (string, error) {
 	}
 	log.Print(n)
 	
-    files, err := Unzip("package.zip", "output")
+    files, err := Unzip("/tmp/package.zip", "/tmp/output")
     if err != nil {
         log.Fatal(err)
     }
@@ -74,8 +74,8 @@ func HandleRequest() (string, error) {
 
 
 	// clean up file system
-	os.Remove("package.zip")
-	os.RemoveAll("output/")
+	os.Remove("/tmp/package.zip")
+	os.RemoveAll("/tmp/output/")
 
     return "done", err
 }
@@ -114,7 +114,7 @@ func AddFileToS3(s *session.Session, fileDir string, S3_BUCKET string) error {
     // of the file you're uploading.
     _, err = s3.New(s).PutObject(&s3.PutObjectInput{
         Bucket:               aws.String(S3_BUCKET),
-        Key:                  aws.String(strings.Split(fileDir, "output/")[1]),
+        Key:                  aws.String(strings.Split(fileDir, "/tmp/output/")[1]),
         ACL:                  aws.String("public-read"),
         Body:                 bytes.NewReader(buffer),
         ContentLength:        aws.Int64(size),
@@ -125,7 +125,7 @@ func AddFileToS3(s *session.Session, fileDir string, S3_BUCKET string) error {
 }
 
 // Unzip will decompress a zip archive, moving all files and folders
-// within the zip file (parameter 1) to an output directory (parameter 2).
+// within the zip file (parameter 1) to an /tmp/output directory (parameter 2).
 func Unzip(src string, dest string) ([]string, error) {
 
     var filenames []string
