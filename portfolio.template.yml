@@ -24,6 +24,9 @@ Parameters:
     Type: String
     Default: kyle-lambda-code
     Description: Globally used bucket for lambda code
+  SNSEndpoint:
+    Type: String
+    Description: The phone number to be used for notifying of build completion
 
 Resources:
 
@@ -180,8 +183,79 @@ Resources:
       Code:
         S3Bucket: !Ref LambdaCodeBucket
         S3Key: !Sub '${AWS::StackName}.zip'
+
+  CodeBuildLambdaDestination:
+    Type: AWS::Lambda::EventInvokeConfig
+    Properties:
+      FunctionName: !Ref CodeBuildLambda
+      Qualifier: $LATEST
+      DestinationConfig:
+        OnSuccess:
+          Destination: !Ref DeployPortfolioTopic
+        OnFailure:
+          Destination: !Ref DeployPortfolioTopic
+
       
 
+  DeployPortfolioTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: !Sub ${AWS::StackName}-deploy
+      TopicName: !Sub ${AWS::StackName}-deploy
+
+  DeployPortfolioSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      Protocol: email
+      TopicArn: !Ref DeployPortfolioTopic
+      Endpoint: !Ref SNSEndpoint
+
+
+
+
+
+
+# WIP
+  PortfolioPipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      Name: !Sub ${AWS::StackName}-pipeline
+      RoleArn: !Ref StackRole
+      ArtifactStore:
+        Location: 
+        Type: 
+      Stages:
+        - Name: Source
+          RunOrder: 1
+          Actions:
+            - Name: Source
+              ActionTypeId:
+                Category: Source
+                Owner: ThirdParty
+                Provider: GitHub
+                Version: 1
+        - Name: Build
+          RunOrder: 2
+          Actions:
+            - Name: Build
+              ActionTypeId:
+                  Category: Build
+                  Owner: AWS
+                  Provider: CodeBuild
+                  Version: 1
+        - Name: Invoke
+          RunOrder: 3
+          Configuration:
+      FunctionName:
+          Actions:
+            - Name: Invoke
+              ActionTypeId:
+                  Category: Invoke
+                  Owner: AWS
+                  Provider: Lambda
+                  Version: $LATEST
+
+    
 # WIP 
   StackRole:
     Type: AWS::IAM::Role
@@ -195,6 +269,7 @@ Resources:
               Service:
               - codebuild.amazonaws.com
               - lambda.amazonaws.com
+              - codepipeline.amzonaws.com
             Action:
               - 'sts:AssumeRole'
       Path: /
@@ -216,4 +291,8 @@ Resources:
                   - 'logs:CreateLogGroup'
                   - 'logs:CreateLogStream'
                   - 'logs:PutLogEvents'
+              - Effect: Allow
+                Resource: !Ref DeployPortfolioTopic
+                Action: 
+                  - 'sns:Publish'
 
