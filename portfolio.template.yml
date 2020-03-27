@@ -15,10 +15,18 @@ Parameters:
     Description: Prefix to host specific website on domain
   GitHubRepoCloneLink:
     Type: String
+    NoEcho: true
     Default: https://github.com/sigma-us/my-portfoilio.git
     Description: GitHub Clone Url for codebuild project
+  GitHubUserName:
+    Type: String
+    NoEcho: true
+    Default: sigma-us
+    Description: Account username for github repo
   GitHubToken:
     Type: String
+    NoEcho: true
+    # Default: '{{resolve:ssm-secure:GitHubToken:1}}'
     Description: Personal token from github to allow codebuild access to github (use secrets manager per aws recommendation)
   LambdaCodeBucket:
     Type: String
@@ -29,85 +37,77 @@ Parameters:
     Description: The phone number to be used for notifying of build completion
 
 Resources:
-
   FrontEndBucket:
     Type: AWS::S3::Bucket
-    Properties: 
+    Properties:
       BucketName: !Ref BucketName
-      PublicAccessBlockConfiguration: 
+      PublicAccessBlockConfiguration:
         BlockPublicAcls: false
         BlockPublicPolicy: false
         IgnorePublicAcls: false
         RestrictPublicBuckets: false
-      WebsiteConfiguration: 
+      WebsiteConfiguration:
         IndexDocument: index.html
 
   FrontEndBucketPolicy:
     Type: AWS::S3::BucketPolicy
-    Properties: 
+    Properties:
       Bucket: !Ref FrontEndBucket
       PolicyDocument:
         Statement:
-          -
-            Action:
+          - Action:
               - "s3:GetObject"
             Effect: "Allow"
-            Resource: 
-              !Sub 'arn:aws:s3:::${BucketName}/*'
+            Resource: !Sub "arn:aws:s3:::${BucketName}/*"
             Principal: "*"
             Condition:
               StringLike:
                 aws:Referer:
                   - "*.kconley.com/*"
 
-# # Route53 Cloudfront Certificate resources
+  # # Route53 Cloudfront Certificate resources
 
-#   PortfolioHostedZone:
-#     Type: AWS::Route53::HostedZone
-#     Properties:
-#       Name: !Sub '${DomainPrefix}.${DomainName}'
+  #   PortfolioHostedZone:
+  #     Type: AWS::Route53::HostedZone
+  #     Properties:
+  #       Name: !Sub '${DomainPrefix}.${DomainName}'
 
+  #   PortfolioRecordSet:
+  #     Type: AWS::Route53::RecordSet
+  #     Properties:
+  #       Name: !Ref DomainPrefix
+  #       Type: A
+  #       AliasTarget: !GetAtt PortfolioDistribution.DomainName
 
-#   PortfolioRecordSet:
-#     Type: AWS::Route53::RecordSet
-#     Properties:
-#       Name: !Ref DomainPrefix
-#       Type: A
-#       AliasTarget: !GetAtt PortfolioDistribution.DomainName
+  #   PortfolioDistribution:
+  #     Type: AWS::CloudFront::Distribution
+  #     Properties:
+  #       DistributionConfig:
+  #         Origins:
+  #           DomainName: !Sub ${DomainPrefix}.${DomainName}.s3.amazonaws.com
+  #           S3OriginConfig:
+  #             OriginAccessIdentity:
+  #           Id: !Sub S3-${DomainPrefix}.${DomainName}
+  #         DefaultCacheBehavior:
+  #           TargetOriginId: !Sub S3-${DomainPrefix}.${DomainName}
+  #           ViewerProtocolPolicy: redirect-to-https
+  #           DefaultTTL: 60
+  #         DefaultRootObject: index.html
+  #         ViewerCertificate:
+  #           SslSupportMethod: sni-only
 
+  # # Looks lik stack creation will pause on the certificate until you go and update
+  # # route 53 with the CNAME record set for DNS validation
+  #   DomainCertificate:
+  #     Type: AWS::CertificateManager::Certificate
+  #     Properties:
+  #       DomainName: !Sub '*.${DomainName}'
+  #       DomainValidationOptions:
+  #         - DomainName: !Sub '*.${DomainName}'
+  #           ValidationDomain: !Ref DomainName
+  #       ValidationMethod: DNS
 
-#   PortfolioDistribution: 
-#     Type: AWS::CloudFront::Distribution
-#     Properties:
-#       DistributionConfig:
-#         Origins:
-#           DomainName: !Sub ${DomainPrefix}.${DomainName}.s3.amazonaws.com
-#           S3OriginConfig: 
-#             OriginAccessIdentity: 
-#           Id: !Sub S3-${DomainPrefix}.${DomainName}
-#         DefaultCacheBehavior:
-#           TargetOriginId: !Sub S3-${DomainPrefix}.${DomainName}
-#           ViewerProtocolPolicy: redirect-to-https
-#           DefaultTTL: 60
-#         DefaultRootObject: index.html
-#         ViewerCertificate:
-#           SslSupportMethod: sni-only
-
-
-
-
-# # Looks lik stack creation will pause on the certificate until you go and update 
-# # route 53 with the CNAME record set for DNS validation
-#   DomainCertificate:
-#     Type: AWS::CertificateManager::Certificate
-#     Properties:
-#       DomainName: !Sub '*.${DomainName}'
-#       DomainValidationOptions:
-#         - DomainName: !Sub '*.${DomainName}'
-#           ValidationDomain: !Ref DomainName
-#       ValidationMethod: DNS
-
-# might skip the DNS stuff since it should really never change once we are up and running
+  # might skip the DNS stuff since it should really never change once we are up and running
 
   PortfolioCodeBuild:
     Type: AWS::CodeBuild::Project
@@ -137,40 +137,37 @@ Resources:
       Token: !Ref GitHubToken
       AuthType: PERSONAL_ACCESS_TOKEN
 
-
   CodeBuildBucket:
     Type: AWS::S3::Bucket
-    Properties: 
+    Properties:
       BucketName: !Sub build-${BucketName}
-      PublicAccessBlockConfiguration: 
+      PublicAccessBlockConfiguration:
         BlockPublicAcls: false
         BlockPublicPolicy: false
         IgnorePublicAcls: false
         RestrictPublicBuckets: false
-      WebsiteConfiguration: 
+      WebsiteConfiguration:
         IndexDocument: index.html
 
   CodeBuildBucketPolicy:
     Type: AWS::S3::BucketPolicy
-    Properties: 
+    Properties:
       Bucket: !Ref CodeBuildBucket
       PolicyDocument:
         Statement:
-          -
-            Action:
+          - Action:
               - "s3:*"
             Effect: "Allow"
-            Resource: 
-              !Sub 'arn:aws:s3:::build-${BucketName}/*'
+            Resource: !Sub "arn:aws:s3:::build-${BucketName}/*"
             Principal: "*"
 
   CodeBuildLambda:
     Type: AWS::Lambda::Function
     Properties:
-      FunctionName: !Sub '${AWS::StackName}_code-build'
+      FunctionName: !Sub "${AWS::StackName}_code-build"
       Description: Unzips and uploads front end files to portfolio bucket
       Handler: !Ref AWS::StackName
-      Role: !GetAtt 
+      Role: !GetAtt
         - StackRole
         - Arn
       Environment:
@@ -182,7 +179,7 @@ Resources:
       Runtime: go1.x
       Code:
         S3Bucket: !Ref LambdaCodeBucket
-        S3Key: !Sub '${AWS::StackName}.zip'
+        S3Key: !Sub "${AWS::StackName}.zip"
 
   CodeBuildLambdaDestination:
     Type: AWS::Lambda::EventInvokeConfig
@@ -194,8 +191,6 @@ Resources:
           Destination: !Ref DeployPortfolioTopic
         OnFailure:
           Destination: !Ref DeployPortfolioTopic
-
-      
 
   DeployPortfolioTopic:
     Type: AWS::SNS::Topic
@@ -210,89 +205,112 @@ Resources:
       TopicArn: !Ref DeployPortfolioTopic
       Endpoint: !Ref SNSEndpoint
 
-
-
-
-
-
-# WIP
+  # WIP
   PortfolioPipeline:
     Type: AWS::CodePipeline::Pipeline
     Properties:
       Name: !Sub ${AWS::StackName}-pipeline
-      RoleArn: !Ref StackRole
+      RoleArn: !GetAtt StackRole.Arn
       ArtifactStore:
-        Location: 
-        Type: 
+        Location: !Ref CodeBuildBucket
+        Type: S3
       Stages:
         - Name: Source
-          RunOrder: 1
           Actions:
             - Name: Source
+              RunOrder: 1
+              OutputArtifacts: 
+                - Name: !Ref AWS::StackName
+              Configuration:
+                Owner: !Ref GitHubUserName
+                Repo: !Ref AWS::StackName
+                PollForSourceChanges: 'false'
+                Branch: master
+                OAuthToken: !Ref GitHubToken
               ActionTypeId:
                 Category: Source
                 Owner: ThirdParty
                 Provider: GitHub
                 Version: 1
         - Name: Build
-          RunOrder: 2
           Actions:
             - Name: Build
+              RunOrder: 2
+              InputArtifacts: 
+                - Name: !Ref AWS::StackName
+              OutputArtifacts: 
+                - Name: !Sub ${AWS::StackName}-build
+              Configuration:
+                ProjectName: !Ref PortfolioCodeBuild
               ActionTypeId:
-                  Category: Build
-                  Owner: AWS
-                  Provider: CodeBuild
-                  Version: 1
+                Category: Build
+                Owner: AWS
+                Provider: CodeBuild
+                Version: 1
         - Name: Invoke
-          RunOrder: 3
-          Configuration:
-      FunctionName:
           Actions:
             - Name: Invoke
+              RunOrder: 3
+              InputArtifacts: 
+                - Name: !Sub ${AWS::StackName}-build
+              Configuration:
+                FunctionName: !Ref CodeBuildLambda
               ActionTypeId:
-                  Category: Invoke
-                  Owner: AWS
-                  Provider: Lambda
-                  Version: $LATEST
+                Category: Invoke
+                Owner: AWS
+                Provider: Lambda
+                Version: 1
 
-    
-# WIP 
+
+  PortfolioPipelineWebhook:
+    Type: AWS::CodePipeline::Webhook
+    Properties:
+      Name: !Sub ${AWS::StackName}_pipeline-webhook
+      Filters:
+        - JsonPath: $.ref
+      Authentication: GITHUB_HMAC
+      TargetPipeline: !Ref PortfolioPipeline
+      TargetAction: Source
+      TargetPipelineVersion: 1
+      AuthenticationConfiguration:
+        SecretToken: !Ref GitHubToken
+
+  # WIP
   StackRole:
     Type: AWS::IAM::Role
     Properties:
       RoleName: !Sub stack_${AWS::StackName}
       AssumeRolePolicyDocument:
-        Version: '2012-10-17'
+        Version: "2012-10-17"
         Statement:
           - Effect: Allow
             Principal:
               Service:
-              - codebuild.amazonaws.com
-              - lambda.amazonaws.com
-              - codepipeline.amzonaws.com
+                - codebuild.amazonaws.com
+                - lambda.amazonaws.com
+                - codepipeline.amazonaws.com
             Action:
-              - 'sts:AssumeRole'
+              - "sts:AssumeRole"
       Path: /
       Policies:
-        - PolicyName: !Sub 'stack_${AWS::StackName}'
+        - PolicyName: !Sub "stack_${AWS::StackName}"
           PolicyDocument:
-            Version: '2012-10-17'
+            Version: "2012-10-17"
             Statement:
               - Effect: Allow
-                Resource: 
-                  - !Sub 'arn:aws:s3:::build-${BucketName}/*'
-                  - !Sub 'arn:aws:s3:::${BucketName}/*'
-                  - !Sub 'arn:aws:s3:::${LambdaCodeBucket}/*'
-                Action: 
-                  - 's3:*'
-              - Effect: Allow
-                Resource: 'arn:aws:logs:*:*:*'
+                Resource:
+                  - !Sub "arn:aws:s3:::build-${BucketName}/*"
+                  - !Sub "arn:aws:s3:::${BucketName}/*"
+                  - !Sub "arn:aws:s3:::${LambdaCodeBucket}/*"
                 Action:
-                  - 'logs:CreateLogGroup'
-                  - 'logs:CreateLogStream'
-                  - 'logs:PutLogEvents'
+                  - "s3:*"
+              - Effect: Allow
+                Resource: "arn:aws:logs:*:*:*"
+                Action:
+                  - "logs:CreateLogGroup"
+                  - "logs:CreateLogStream"
+                  - "logs:PutLogEvents"
               - Effect: Allow
                 Resource: !Ref DeployPortfolioTopic
-                Action: 
-                  - 'sns:Publish'
-
+                Action:
+                  - "sns:Publish"
