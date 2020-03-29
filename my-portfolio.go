@@ -6,6 +6,8 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
     "github.com/aws/aws-sdk-go/service/s3/s3manager"
     "github.com/aws/aws-lambda-go/lambda"
+    "github.com/aws/aws-lambda-go/events"
+    "github.com/aws/aws-sdk-go/service/codepipeline"
 	"archive/zip"
     "fmt"
     "io"
@@ -30,7 +32,20 @@ const (
 
 
 
-func HandleRequest() (string, error) {
+func HandleRequest(request events.CodePipelineEvent) (string, error) {
+    var location events.CodePipelineS3Location
+
+    job := request.CodePipelineJob
+    artifacts := job.Data.InputArtifacts
+    
+    for i:=0; i < len(artifacts); i++  {
+        fmt.Println(artifacts[i])
+        if (artifacts[i].Name == "my-portfolio-build") {
+            location = job.Data.InputArtifacts[i].Location.S3Location
+            fmt.Println(location.BucketName)
+        }
+    }
+    
     sess, _ := session.NewSession(&aws.Config{Region: aws.String("us-east-1")})
 	downloader := s3manager.NewDownloader(sess)
 
@@ -49,13 +64,13 @@ func HandleRequest() (string, error) {
 	} 
 
 	n, err := downloader.Download(f, &s3.GetObjectInput{
-		Bucket: aws.String(BUILD_BUCKET),
-		Key:    aws.String("portfoliobuild.zip"),
+		Bucket: aws.String(location.BucketName),
+		Key:    aws.String(location.ObjectKey),
 	})
 	if err != nil {
         log.Fatal(err)
+        log.Print(n)
 	}
-	log.Print(n)
 	
     files, err := Unzip("/tmp/package.zip", "/tmp/output")
     if err != nil {
@@ -72,7 +87,24 @@ func HandleRequest() (string, error) {
 		}
 	}
 
-
+    svc := codepipeline.New(sess)
+    log.Print(request.CodePipelineJob.Data.ContinuationToken)
+    log.Print(request.CodePipelineJob.ID)
+    params := &codepipeline.PutJobSuccessResultInput{
+        JobId:             aws.String(request.CodePipelineJob.ID), // Required
+        ContinuationToken: aws.String(request.CodePipelineJob.Data.ContinuationToken),
+        // CurrentRevision: &codepipeline.CurrentRevision{
+        //     ChangeIdentifier: aws.String("RevisionChangeIdentifier"), // Required
+        //     Revision:         aws.String("Revision"),                 // Required
+        // },
+    }
+    resp, err := svc.PutJobSuccessResult(params)
+    if err != nil {
+        // Print the error, cast err to awserr.Error to get the Code and
+        // Message from an error.
+        log.Fatal(err)
+    }
+    fmt.Println(resp)
 	// clean up file system
 	os.Remove("/tmp/package.zip")
 	os.RemoveAll("/tmp/output/")
@@ -183,6 +215,5 @@ func Unzip(src string, dest string) ([]string, error) {
 }
 
 func main() {
-    log.Print("main")
 	lambda.Start(HandleRequest)
 }

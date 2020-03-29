@@ -314,3 +314,14 @@ Resources:
                 Resource: !Ref DeployPortfolioTopic
                 Action:
                   - "sns:Publish"
+              - Effect: Allow
+                Resource: "arn:aws:codebuild:*"
+                Action: 
+                  - "codebuild:StartBuild"
+                  - "codebuild:BatchGetBuilds"
+              - Effect: Allow
+                Resource: "arn:aws:lambda:*:*:*"
+                Action: "lambda:*"
+              - Effect: Allow
+                Resource: "arn:aws:codepipeline:*:*:*"
+                Action: "codepipeline:PutJobSuccessResult"
