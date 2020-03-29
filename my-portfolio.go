@@ -92,19 +92,14 @@ func HandleRequest(request events.CodePipelineEvent) (string, error) {
     log.Print(request.CodePipelineJob.ID)
     params := &codepipeline.PutJobSuccessResultInput{
         JobId:             aws.String(request.CodePipelineJob.ID), // Required
-        ContinuationToken: aws.String(request.CodePipelineJob.Data.ContinuationToken),
-        // CurrentRevision: &codepipeline.CurrentRevision{
-        //     ChangeIdentifier: aws.String("RevisionChangeIdentifier"), // Required
-        //     Revision:         aws.String("Revision"),                 // Required
-        // },
     }
     resp, err := svc.PutJobSuccessResult(params)
     if err != nil {
-        // Print the error, cast err to awserr.Error to get the Code and
-        // Message from an error.
         log.Fatal(err)
     }
     fmt.Println(resp)
+
+    
 	// clean up file system
 	os.Remove("/tmp/package.zip")
 	os.RemoveAll("/tmp/output/")

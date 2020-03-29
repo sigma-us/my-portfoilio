@@ -323,5 +323,5 @@ Resources:
                 Resource: "arn:aws:lambda:*:*:*"
                 Action: "lambda:*"
               - Effect: Allow
-                Resource: "arn:aws:codepipeline:*:*:*"
+                Resource: "*"
                 Action: "codepipeline:PutJobSuccessResult"
