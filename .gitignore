@@ -108,3 +108,4 @@ dist
 portfolio.params.json
 build
 .DS_Store
+package-lock.json

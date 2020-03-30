@@ -1,0 +1,39 @@
+{
+  "name": "my-portfoilio",
+  "version": "1.0.0",
+  "description": "Professional Portfolio",
+  "main": "src/index.js",
+  "dependencies": {
+    "@babel/polyfill": "^7.8.7",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
+    "@babel/preset-typescript": "^7.9.0",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^3.4.2",
+    "html-loader": "^1.0.0",
+    "raw-loader": "^4.0.0",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  },
+  "scripts": {
+    "webpack": "webpack",
+    "webpack-watch": "webpack --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sigma-us/my-portfolio.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sigma-us/my-portfolio/issues"
+  },
+  "homepage": "https://github.com/sigma-us/my-portfolio#readme"
+}
