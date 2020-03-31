@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ExampleWork from './example-work'
 
-const myWork = [
+const myWork: any = [
     {
         title: "Work Example",
         image: {

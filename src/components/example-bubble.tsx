@@ -1,8 +1,11 @@
 import React from 'react';
 
-class ExampleWorkBubble extends React.Component {
+class ExampleWorkBubble extends React.Component<any, any> {
     render() {
         const example = this.props.example;
+
+        console.log('example bubble')
+        
 
         return (
             <div className="section__exampleWrapper">
