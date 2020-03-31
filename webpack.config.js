@@ -9,7 +9,8 @@ module.exports = {
     entry: {
         main: './src/index.tsx',
         vendor: [
-            'react'
+            'react',
+            'react-dom'
         ]
     },
     devtool: 'source-map',
