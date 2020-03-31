@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist/",
+        "sourceMap": true,
+        "module": "commonjs",
+        "target": "es6",
+        "jsx": "react",
+        "esModuleInterop": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "noImplicitAny": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true,
+        "removeComments": true
+    },
+    "include": [
+      "./src/**/*"
+    ],
+    "exclude":[
+        "node_modules",
+        "./dist",
+    ]
+  }
+  
