@@ -26,7 +26,6 @@ Parameters:
   GitHubToken:
     Type: String
     NoEcho: true
-    # Default: '{{resolve:ssm-secure:GitHubToken:1}}'
     Description: Personal token from github to allow codebuild access to github (use secrets manager per aws recommendation)
   LambdaCodeBucket:
     Type: String

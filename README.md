@@ -1,4 +1,4 @@
-# my-portfoilio
+# my-portfolio
 Professional Portfolio
 
 
@@ -8,6 +8,7 @@ Professional Portfolio
 - Git and Github
 - SSH
 - React
+- Typescript
 - Webpack
 - Babel
 - Golang
@@ -19,3 +20,5 @@ Professional Portfolio
 -- Cloudfront
 -- S3
 -- Cloudformation
+-- Route 53
+-- Certificate Manager
