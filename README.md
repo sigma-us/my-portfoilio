@@ -1,6 +1,6 @@
 # my-portfolio
 
-[Professional Portfolio](portfolio.kconley.com)
+[Professional Portfolio](https://portfolio.kconley.com)
 
 
 # Technologies Used
