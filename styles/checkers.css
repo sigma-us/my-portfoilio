@@ -1,0 +1,123 @@
+.app-container {
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-bottom: 20px;
+}
+
+.current {
+  height: 100%;
+  background-color: lightgray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+
+.board {
+  display: block;
+  height: calc(100vh - 20px);
+}
+
+.row {
+  height: 40px;
+}
+
+.square {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+}
+
+.old-lace {
+  background-color: oldlace;
+}
+
+.black {
+  background-color: black;
+}
+
+
+.checker {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+.selected .checker {
+  margin-top: 2px;
+  margin-left: 2px;
+}
+
+.square-piece {
+  border-radius: 0;
+}
+
+.oval-piece {
+  width: 20px;
+  margin-left: 10px;
+}
+
+.player-two {
+  background-color: red;
+}
+
+
+.player-one {
+  /* black on black is not a good look for checkers so i went with white */
+  background-color: white;
+
+}
+
+.player-two.blue {
+  background-color: lightblue;
+}
+
+.player-one.blue {
+  background-color: lightpink;
+}
+
+
+.player-two.green {
+  background-color: lightgreen;
+}
+
+.player-one.green {
+  background-color: lightgoldenrodyellow;
+}
+
+.suggested {
+  border: solid 2px lightskyblue;
+  width: 36px;
+  height: 36px;
+}
+
+.selected {
+  border: solid 3px yellow;
+  width: 34px;
+  height: 34px;
+}
+
+
+.player-one.king,
+.player-two.king {
+  box-shadow:
+    /* The top layer shadow */
+    0 -1px 1px rgba(0, 0, 0, 0.55),
+    /* The second layer */
+    0 -10px 0 -5px rgb(255, 251, 0),
+    /* The second layer shadow */
+    0 -10px 1px -3px rgba(0, 0, 0, 0.15),
+    /* The third layer */
+    0 -20px 0 -10px rgb(255, 217, 0),
+    /* The third layer shadow */
+    0 -20px 1px -8px rgba(0, 0, 0, 0.15);
+  /* Padding for demo purposes */
+}

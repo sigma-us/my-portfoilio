@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Kyle Conley : Professional Wizard</title>
     <link rel="stylesheet" href="styles/main.css"/>
+    <link rel="stylesheet" href="styles/checkers.css"/>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
 
@@ -12,95 +13,12 @@
   </head>
 
   <body>
-    <main class="overflow--auto">
-      <h1 class="color--skyBlue section__heading--largest">
-        <!--Your name goes here -->
-        Kyle Conley
-      </h1>
+    <div id='main'></div>
+    <script type="text/javascript" src="/dist/vendor.js"></script>
+    <!-- <script type="text/javascript" src="dist/vendor.js.map"></script> -->
+    <!-- <script src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js"></script> -->
+    <script type="text/javascript" src="/dist/main.js"></script>
+    <!-- <script type="text/javascript" src="dist/main.js.map"></script> -->
 
-      <ul class="section--social">
-
-        <!--Links to relevant professional social media & resume -->
-        <!-- See: http://fontawesome.io/icons/#brand for more -->
-
-        <!-- Link to Linked In profile -->
-        <li class="socialWrapper">
-          <a class="color--skyBlue social"
-             title="LinkedIn Profile"
-             target="_blank"
-             href="https://linkedin.com/in/kyle-conley">
-            <i class="fa fa-linkedin"></i>
-          </a>
-        </li>
-
-        <!-- Link to GitHub profile -->
-        <li class="socialWrapper color--skyBlue">
-          <a class="social color--skyBlue"
-             title="GitHub Profile"
-             target="_blank"
-             href="https://github.com/sigma-us">
-            <i class="fa fa-github"></i>
-          </a>
-        </li>
-
-        <!-- Link to resume, probably a .pdf -->
-        <!-- <li class="socialWrapper">
-          <a class="social color--skyBlue"
-             title="Resume"
-             href="#">
-            <i class="fa fa-file-text"></i>
-          </a>
-        </li> -->
-      </ul>
-    </main>
-
-    <section class="background--skyBlue section">
-      <h2 class="color--cloud margin--none section__text--centered">
-        Portfolio Coming Soon
-      </h2>
-    </section>
-
-    <div id='example-work'>
-
-    </div>
-    
-
-    <section class="background--skyBlue section">
-      <h2 class="color--cloud margin--none section__text--centered">
-        About Me
-      </h2>
-    </section>
-
-    <section class="section section--alignCentered section--description">
-      <p class="color--darkgrey section__description">
-        I have 3+ years experience in Full-Stack Web Development. I have been using AWS since the beginning and 
-        love to build cloud based micro-services. I have predominantly used Node.js the past 3 years however I am
-        language agnostic and my CI/CD pipeline in AWS for this project is written using Golang. I am teaching myself Golang
-        and C++ because I wish to get more familiar with Computer Vision, Artificial Intelligence, and Machine Learning. This website is
-        being hosted with AWS S3 through CloudFront for decreased latency and increased scalability.
-      </p>
-
-    <div class="background--skyBlue modal--closed">
-      <span class="color--cloud modal__closeButton">
-        <i class="fa fa-window-close-o"></i>
-      </span>
-      <img alt="example screenshot of a project involving code"
-           class="modal__image"
-           src="images/example1.png"/>
-      <div class="color--cloud modal__text">
-        <h2 class="modal__title">
-          Work Example Name
-        </h2>
-        <a class="color--skyBlue modal__link"
-           href="#">
-          Check it out
-        </a>
-        <p class="modal__description">
-          A long description of the work in question.
-        </p>
-      </div>
-    </div>
-    <script type="text/javascript" src="dist/main.js">
-    </script>
   </body>
 </html>

@@ -1,7 +1,9 @@
 'use strict';
 
 const path = require('path');
-const { CheckerPlugin } = require('awesome-typescript-loader')
+const { CheckerPlugin } = require('awesome-typescript-loader');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 
 module.exports = {
@@ -10,14 +12,17 @@ module.exports = {
         main: './src/index.tsx',
         vendor: [
             'react',
-            'react-dom'
+            'react-dom',
+            'react-router',
+            'react-router-dom'
         ]
     },
     devtool: 'source-map',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].js',
-        chunkFilename: "[chunkhash].js"
+        chunkFilename: "[chunkhash].js",
+        publicPath: "/dist/"
     },
     module: {
         rules: [{
@@ -50,9 +55,19 @@ module.exports = {
         }]
     },
     plugins: [
-        new CheckerPlugin()
+        new CheckerPlugin(),
+        new CleanWebpackPlugin(),
+        // new HtmlWebpackPlugin({
+        //     template: './index.html',
+        //     favicon: './favicon.ico',
+        // }),
     ],
     resolve: {
-        extensions: ['.ts', '.tsx', '.js']
+        extensions: ['.ts', '.tsx', '.js', '.jsx']
+    },
+    devServer: {
+        contentBase: './',
+        port: 3000,
+        historyApiFallback: true,
     }
 }
