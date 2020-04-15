@@ -6,10 +6,13 @@ class ExampleWork extends Component<any, any> {
     constructor(props: any) {
         super(props)
     }
+
+    componentDidMount() {
+        window.scrollTo(0, 0)
+    }
     
 
     render() {
-        window.scrollTo(0, 0)
 
         return (
             <div>

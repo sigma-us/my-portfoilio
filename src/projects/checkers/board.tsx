@@ -64,6 +64,8 @@ export default class Board extends Component<any, any> {
 
     componentDidMount() {
         // set size here to avoid form error in constructor
+        window.scrollTo(0, 0)
+
         let saveState = localStorage.getItem('game');
         if (saveState !== null) {
             this.setState(JSON.parse(saveState));
@@ -162,7 +164,6 @@ export default class Board extends Component<any, any> {
     }
 
     render() {
-        window.scrollTo(0, 0)
 
         return (
             <div className='app-container'>
