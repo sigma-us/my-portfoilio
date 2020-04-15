@@ -3,10 +3,10 @@ import React from 'react';
 class ExampleWorkBubble extends React.Component<any, any> {
     render() {
         const example = this.props.example;
-        const link = this.props.example.link as string;
+        // const link = this.props.example.link as string;
 
         return (
-            <a href={link} target='_blank'>
+            // // <a href={link} target='_blank'>
                 <div className="section__exampleWrapper">
                     <div className="section__example">
                         <img alt={example.image.desc}
@@ -21,7 +21,7 @@ class ExampleWorkBubble extends React.Component<any, any> {
                         </dl>
                     </div>
                 </div>
-            </a>
+            // </a>
         )
     }
 }
