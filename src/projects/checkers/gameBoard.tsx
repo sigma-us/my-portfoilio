@@ -13,10 +13,23 @@ export class GameBoard {
         this.size = Number(size) < 6 ? 6 : Math.floor(Number(size) / 2) * 2;
         this.board = this.fillBoard(this.makeBoard());
         this.checkers = this.makeCheckers();
-        this.canKeepJumping = this.canKeepJumping;
+        this.moveChecker = this.moveChecker.bind(this);
+        this.canMoveChecker = this.canMoveChecker.bind(this);
+        this.getPlayer = this.getPlayer.bind(this);
+        this.canKeepJumping = this.canMoveChecker.bind(this);
+        this.getSuggestedMoves = this.getSuggestedMoves.bind(this);
+        this.isJumpMove = this.isJumpMove.bind(this);
+    }
+
+    setCheckers = (checkers: any[]) => {
+        this.checkers = checkers;
+    }
+    setBoard = (board: number[][]) => {
+        this.board = board;
+        console.log(this.board, this.checkers)
     }
     
-    public makeBoard = (): number[][] => {
+    makeBoard = (): number[][] => {
         let board = [];
 
         for (let i = 0; i < this.size; ++i) {
@@ -72,7 +85,6 @@ export class GameBoard {
         let moves = this.getAllMoves(player);
         let movesToCheck = moves.singles;
         let check = this.checkers[checker];
-
 
         if (moves.jumps.length) {
             for (let move of moves.jumps) {
@@ -171,6 +183,7 @@ export class GameBoard {
         let c = this.checkers[checker];
         let cRow = c.row;
         let cCol = c.col;
+        
         if (this.isJumpMove(checker, row)) {
             let midRow = (cRow + row) / 2;
             let midCol = (cCol + col) / 2;

@@ -71,6 +71,8 @@ export default class Board extends Component<any, any> {
             saveState = JSON.parse(saveState);
             // keep class methods from board this is required because local storage is saves as a string and removes the class functions
             saveState.board = {...this.state.board, ...saveState.board}; 
+            saveState.board.setCheckers(saveState.board.checkers);
+            saveState.board.setBoard(saveState.board.board);
             this.setState(saveState);
             localStorage.removeItem('game');
         } else this.setState({ boardSize: 8 });
