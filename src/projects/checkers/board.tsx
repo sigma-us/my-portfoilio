@@ -144,6 +144,8 @@ export default class Board extends Component<any, any> {
     }
 
     render() {
+        window.scrollTo(0, 0)
+
         return (
             <div className='app-container'>
                 <form>

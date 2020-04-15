@@ -9,6 +9,8 @@ class ExampleWork extends Component<any, any> {
     
 
     render() {
+        window.scrollTo(0, 0)
+
         return (
             <div>
                 <main className="overflow--auto">
