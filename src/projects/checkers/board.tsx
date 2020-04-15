@@ -50,7 +50,7 @@ export default class Board extends Component<any, any> {
         this.setState({ board: new GameBoard(this.state.boardSize, 1, 2) })
     }
 
-    componentDidUpdate(prevProps: any, prevState: { turn: any; }) {
+    componentDidUpdate(prevProps: any, prevState: { turn: any, board: any }) {
         if (prevProps) { };
         if (prevState.turn !== this.state.turn) {
             let board = this.state.board;
@@ -69,8 +69,8 @@ export default class Board extends Component<any, any> {
         let saveState: any = localStorage.getItem('game');
         if (saveState !== null) {
             saveState = JSON.parse(saveState);
-            // keep proto from board this is required because local storage is saves as a string and removes the proto prop
-            saveState.board.__proto__ = this.state.board.__proto__; 
+            // keep class methods from board this is required because local storage is saves as a string and removes the class functions
+            saveState.board = {...this.state.board, ...saveState.board}; 
             this.setState(saveState);
             localStorage.removeItem('game');
         } else this.setState({ boardSize: 8 });

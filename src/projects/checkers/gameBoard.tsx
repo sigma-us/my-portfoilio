@@ -13,10 +13,10 @@ export class GameBoard {
         this.size = Number(size) < 6 ? 6 : Math.floor(Number(size) / 2) * 2;
         this.board = this.fillBoard(this.makeBoard());
         this.checkers = this.makeCheckers();
-        this.canKeepJumping = this.canKeepJumping.bind(this)
+        this.canKeepJumping = this.canKeepJumping;
     }
     
-    makeBoard = (): number[][] => {
+    public makeBoard = (): number[][] => {
         let board = [];
 
         for (let i = 0; i < this.size; ++i) {
