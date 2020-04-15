@@ -8,6 +8,7 @@ phases:
 artifacts:
   files:
     - index.html
+    - robots.txt
     - favicon.ico
     - images/*
     - styles/*
