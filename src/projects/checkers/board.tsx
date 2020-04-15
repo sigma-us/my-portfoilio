@@ -151,7 +151,7 @@ export default class Board extends Component<any, any> {
                 <form>
                     <label>
                         Board Size:
-                        <input type='text' value={this.state.boardSize} onChange={this.handleChange} />
+                        <input type='number' value={this.state.boardSize} onChange={this.handleChange} />
                         <input type="submit" value="Resize Board" onClick={this.handleSubmit.bind(this)} />
                     </label>
                     <label>
