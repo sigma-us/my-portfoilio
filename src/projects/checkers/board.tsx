@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {GameBoard} from './gameBoard';
+import { GameBoard } from './gameBoard';
 
 const P1 = 1;
 const P2 = 2;
@@ -19,14 +19,23 @@ export default class Board extends Component<any, any> {
         super(props)
         this.state = {
             boardSize: '',
-            board: new GameBoard(8, 1, 2),
+            board: new GameBoard(8, 1, 2) as GameBoard,
             turn: 1,
             selectedSquare: null,
             winner: null,
             checkerShape: 'default-shape',
             checkerColor: 'default-color',
             suggestedMoves: []
-        };
+        } as {
+            boardSize: number | string,
+            board: GameBoard,
+            turn: number,
+            selectedSquare: null,
+            winner: null,
+            checkerShape: string,
+            checkerColor: string,
+            suggestedMoves: []
+        }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.setSuggestedMoves = this.setSuggestedMoves.bind(this);
@@ -42,7 +51,7 @@ export default class Board extends Component<any, any> {
     }
 
     componentDidUpdate(prevProps: any, prevState: { turn: any; }) {
-        if (prevProps) {};
+        if (prevProps) { };
         if (prevState.turn !== this.state.turn) {
             let board = this.state.board;
             if (!board.hasMoves(this.state.turn)) {
@@ -55,7 +64,11 @@ export default class Board extends Component<any, any> {
 
     componentDidMount() {
         // set size here to avoid form error in constructor
-        this.setState({ boardSize: 8 });
+        let saveState = localStorage.getItem('game');
+        if (saveState !== null) {
+            this.setState(JSON.parse(saveState));
+            localStorage.removeItem('game');
+        } else this.setState({ boardSize: 8 });
     }
 
     selectSquare(row: any, col: any) {
@@ -143,6 +156,11 @@ export default class Board extends Component<any, any> {
         });
     }
 
+    saveToLocal() {
+        const local = this.state;
+        localStorage.setItem('game', JSON.stringify(local));
+    }
+
     render() {
         window.scrollTo(0, 0)
 
@@ -152,7 +170,7 @@ export default class Board extends Component<any, any> {
                     <label>
                         Board Size:
                         <input type='number' value={this.state.boardSize} onChange={this.handleChange} />
-                        <input type="submit" value="Resize Board" onClick={this.handleSubmit.bind(this)} />
+                        <input type="submit" value="Resize/Reset Board" onClick={this.handleSubmit.bind(this)} />
                     </label>
                     <label>
                         Checker Default:
@@ -202,6 +220,9 @@ export default class Board extends Component<any, any> {
                             value='green'
                             checked={this.state.checkerColor === 'green'}
                             onChange={this.onColorChange.bind(this)}></input>
+                    </label>
+                    <label>
+                        <input type='button' value="Save Game" onClick={this.saveToLocal.bind(this)}></input>
                     </label>
                 </form>
 
@@ -265,7 +286,7 @@ class Row extends Component<any, any> {
             let suggested = false;
             this.props.suggestedMoves.map((move: { row: any; col: any; }) => {
                 if (move.row === this.props.rowNum && move.col === i) suggested = true;
-                
+
                 return move;
             });
 

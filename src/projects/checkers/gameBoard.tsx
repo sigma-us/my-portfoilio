@@ -3,7 +3,7 @@ export interface GameBoard {
     playerTwo: number,
     size: number,
     board: number[][] | null[][],
-    checkers: any[]
+    checkers: any[],
 }
 
 export class GameBoard {
@@ -67,7 +67,7 @@ export class GameBoard {
     }
 
     // to do winner screen/reset button
-    canMoveChecker =  ( checker: number, row: number, col: number) => {
+    canMoveChecker =  ( checker: number, row: number, col: number): boolean => {
         let player = this.checkers[checker].player;
         let moves = this.getAllMoves(player);
         let movesToCheck = moves.singles;
