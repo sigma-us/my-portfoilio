@@ -35,6 +35,7 @@ const myWork: any = [
     }
 ]
 
+const render = () => {
 
 ReactDOM.render(
     <Router>
@@ -53,8 +54,14 @@ ReactDOM.render(
                 </Switch>
             {/* </ScrollToTop> */}
     </Router>
-    , document.getElementById('main'))
-console.log('webpack works index tsx file');
+    , document.getElementById('main'));
+}
 
+render();
 
+if (module.hot) {
+    console.log('module hot')
+    console.log(module)
+    module.hot.accept();
+  }
 serviceWorker.unregister();

@@ -56,7 +56,7 @@ class ExampleWork extends Component<any, any> {
 
                 <section className="background--skyBlue section">
                     <h2 className="color--cloud margin--none section__text--centered">
-                        Portfolio Under Construction: ⚠️
+                        🚧 👷🏻‍♂️🐒 Portfolio Under Construction: 🦍👋🏻 🚧
                     </h2>
                 </section>
 
