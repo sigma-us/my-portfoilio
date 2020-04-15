@@ -2,7 +2,6 @@
 
 const path = require('path');
 const { CheckerPlugin } = require('awesome-typescript-loader');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 
@@ -10,12 +9,12 @@ module.exports = {
     mode: "development",
     entry: {
         main: './src/index.tsx',
-        vendor: [
-            'react',
-            'react-dom',
-            'react-router',
-            'react-router-dom'
-        ]
+        // vendor: [
+        //     'react',
+        //     // 'react-dom',
+        //     // 'react-router',
+        //     // 'react-router-dom'
+        // ]
     },
     devtool: 'source-map',
     output: {
@@ -32,7 +31,7 @@ module.exports = {
                 loader: 'awesome-typescript-loader',
                 options: {
                     useBabel: true,
-                    useCache: true
+                    useCache: true,
                 }
             }]
         }, {
@@ -69,5 +68,6 @@ module.exports = {
         contentBase: './',
         port: 3000,
         historyApiFallback: true,
+        hot: true
     }
 }

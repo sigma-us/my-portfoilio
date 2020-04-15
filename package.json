@@ -35,6 +35,7 @@
   },
   "scripts": {
     "webpack": "webpack",
+    "webpack-prod": "webpack --mode production",
     "webpack-watch": "webpack --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "ws": "ws",
