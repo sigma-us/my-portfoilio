@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import ExampleWorkBubble from './components/example-bubble'
+import { Link } from 'react-router-dom';
 
 class ExampleWork extends Component<any, any> {
+    constructor(props: any) {
+        super(props)
+    }
+    
+
     render() {
         return (
             <div>
@@ -54,9 +60,12 @@ class ExampleWork extends Component<any, any> {
 
                         {this.props.work.map((example: any, i: string) => {
                             return (
-                                <ExampleWorkBubble
-                                    example={example}
-                                    key={i} />
+                                <Link key={i} to='/checkers'>
+
+                                    <ExampleWorkBubble
+                                        example={example}
+                                        key={i} />
+                                </Link>
                             )
                         })}
 
