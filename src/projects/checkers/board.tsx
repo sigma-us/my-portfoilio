@@ -145,7 +145,7 @@ export default class Board extends Component<any, any> {
 
     render() {
         return (
-            <div className='appContainer'>
+            <div className='app-container'>
                 <form>
                     <label>
                         Board Size:
