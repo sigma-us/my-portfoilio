@@ -54,7 +54,7 @@ export default class Board extends Component<any, any> {
         if (prevProps) { };
         if (prevState.turn !== this.state.turn) {
             let board = this.state.board;
-            if (!board.hasMoves(this.state.turn)) {
+            if (board && !board.hasMoves(this.state.turn)) {
                 console.log("no available moves!!!");
                 this.setState({ winner: this.nextPlayer() });
             }
