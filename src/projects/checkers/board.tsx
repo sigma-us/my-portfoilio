@@ -66,9 +66,12 @@ export default class Board extends Component<any, any> {
         // set size here to avoid form error in constructor
         window.scrollTo(0, 0)
 
-        let saveState = localStorage.getItem('game');
+        let saveState: any = localStorage.getItem('game');
         if (saveState !== null) {
-            this.setState(JSON.parse(saveState));
+            saveState = JSON.parse(saveState);
+            // keep proto from board this is required because local storage is saves as a string and removes the proto prop
+            saveState.board.__proto__ = this.state.board.__proto__; 
+            this.setState(saveState);
             localStorage.removeItem('game');
         } else this.setState({ boardSize: 8 });
     }
