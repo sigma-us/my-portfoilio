@@ -6,9 +6,17 @@ import { BrowserRouter as Router, Route, Switch, Redirect, } from 'react-router-
 
 import Board from './projects/checkers/board';
 import * as serviceWorker from './serviceWorker';
+interface MyWork {
+    title: string,
+    image: {
+        desc: string,
+        src: string,
+        comment: string
+    },
+    link?: string
+}
 
-
-const myWork: any = [
+const myWork: MyWork[] = [
     {
         title: "React Checkers",
         image: {
