@@ -3,6 +3,7 @@
 * [Main Portfolio](https://portfolio.kconley.com)
 * [React Checkers With Typescript](https://portfolio.kconley.com/checkers) 
 * JS react checkers repo [here](https://github.com/sigma-us/react-checkers)
+* ![react checkers](https://github.com/sigma-us/my-portfolio/blob/master/images/example1.png "React Checkers title text")
 
 ----
 ## Technologies Used
