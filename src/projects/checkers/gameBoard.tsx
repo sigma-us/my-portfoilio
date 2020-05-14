@@ -13,12 +13,6 @@ export class GameBoard {
         this.size = Number(size) < 6 ? 6 : Math.floor(Number(size) / 2) * 2;
         this.board = this.fillBoard(this.makeBoard());
         this.checkers = this.makeCheckers();
-        this.moveChecker = this.moveChecker.bind(this);
-        this.canMoveChecker = this.canMoveChecker.bind(this);
-        this.getPlayer = this.getPlayer.bind(this);
-        this.canKeepJumping = this.canMoveChecker.bind(this);
-        this.getSuggestedMoves = this.getSuggestedMoves.bind(this);
-        this.isJumpMove = this.isJumpMove.bind(this);
     }
 
     setCheckers = (checkers: any[]) => {

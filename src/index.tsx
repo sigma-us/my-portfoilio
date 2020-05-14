@@ -23,8 +23,7 @@ const myWork: MyWork[] = [
             desc: "example screenshot of react checkers frontend",
             src: "images/example1.png",
             comment: ""
-        },
-        link: "http://checkers.kconley.com.s3-website-us-east-1.amazonaws.com/"
+        }
     }, {
         title: "Coming Soon",
         image: {
