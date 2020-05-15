@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { GameBoard } from './gameBoard';
+import { Link } from 'react-router-dom';
 
 const P1 = 1;
 const P2 = 2;
@@ -255,6 +256,11 @@ export default class Board extends Component<any, any> {
                             checkerColor={this.state.checkerColor}
                             suggestedMoves={this.state.suggestedMoves}></Game>
                     }
+                </div>
+                <div className='home-btn'>
+                    <Link to="/">
+                        <button type='button'>Home</button>
+                    </Link>
                 </div>
             </div>
         )

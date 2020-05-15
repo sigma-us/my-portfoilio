@@ -18,10 +18,13 @@ form {
   padding-bottom: 20px;
 }
 
+.home-btn {
+  padding-top: 40px;
+}
 
 .board {
   display: block;
-  height: calc(100vh - 20px);
+  height: fit-content;
 }
 
 .row {
