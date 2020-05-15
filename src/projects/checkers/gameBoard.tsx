@@ -18,17 +18,19 @@ export class GameBoard {
     setCheckers = (checkers: any[]) => {
         this.checkers = checkers;
     }
+
     setBoard = (board: number[][]) => {
         this.board = board;
-        console.log(this.board, this.checkers)
+        //console.log(this.board, this.checkers)
     }
-    
+
     makeBoard = (): number[][] => {
         let board = [];
 
         for (let i = 0; i < this.size; ++i) {
             board.push(Array(this.size).fill(null));
         }
+
         return board;
     }
 
@@ -54,9 +56,10 @@ export class GameBoard {
         return board;
     }
 
-    getAllMoves = ( player: any) => {
+    getAllMoves = (player: any) => {
         let moves = { jumps: [] as any, singles: [] as any };
         let checkers = this.checkers;
+
         checkers.forEach((checker: { player: any; removed: any; }, i: any) => {
             if (checker.player === player && !checker.removed) {
                 let cMoves = this.getMoves(i);
@@ -64,17 +67,20 @@ export class GameBoard {
                 moves.singles = (moves.singles).concat(cMoves.singles);
             }
         });
+
         console.log("moves: ", (moves));
+
         return moves;
     }
 
-    hasMoves =  ( player: any) => {
+    hasMoves = (player: any) => {
         let moves = this.getAllMoves(player);
+
         return moves.jumps.length + moves.singles.length > 0;
     }
 
     // to do winner screen/reset button
-    canMoveChecker =  ( checker: number, row: number, col: number): boolean => {
+    canMoveChecker = (checker: number, row: number, col: number): boolean => {
         let player = this.checkers[checker].player;
         let moves = this.getAllMoves(player);
         let movesToCheck = moves.singles;
@@ -111,10 +117,11 @@ export class GameBoard {
             }
 
         }
+
         return false;
     }
 
-    getSuggestedMoves =  ( checker: number, row: number, col: number) => {
+    getSuggestedMoves = (checker: number, row: number, col: number) => {
         let player = this.checkers[checker].player;
         let moves = this.getAllMoves(player);
         let movesToCheck = moves.singles;
@@ -133,6 +140,7 @@ export class GameBoard {
                 }
             }
         }
+
         if (player === 2 || check.isKing) {
             for (let move of movesToCheck) {
                 if (move.row - 1 === row && (move.col - 1 === col || move.col + 1 === col)) {
@@ -151,10 +159,11 @@ export class GameBoard {
 
     canKeepJumping = (checker: any) => {
         let moves = this.getMoves(checker).jumps;
-        // console.log(JSON.stringify(moves));
+
         if (moves.length) {
             return true;
         }
+
         return false;
     }
 
@@ -163,21 +172,23 @@ export class GameBoard {
         c.isKing = true;
     }
 
-    isKing =  (checker: number) => {
+    isKing = (checker: number) => {
         let c = this.checkers[checker];
+
         return c.isKing;
     }
 
-    getPlayer =  (checker: number) => {
+    getPlayer = (checker: number) => {
         let c = this.checkers[checker];
+
         return c.player;
     }
 
-    moveChecker =  (checker: number, row: number, col: number) => {
+    moveChecker = (checker: number, row: number, col: number) => {
         let c = this.checkers[checker];
         let cRow = c.row;
         let cCol = c.col;
-        
+
         if (this.isJumpMove(checker, row)) {
             let midRow = (cRow + row) / 2;
             let midCol = (cCol + col) / 2;
@@ -185,13 +196,14 @@ export class GameBoard {
             this.board[midRow][midCol] = null;
             this.checkers[removedPlayer as number].removed = true;
         }
+
         c.row = row;
         c.col = col;
         this.board[cRow][cCol] = null;
         this.board[row][col] = checker;
     }
 
-    getMoves =  (checker: number) => {
+    getMoves = (checker: number) => {
         let singles = [] as any[];
         let jumps = [] as any[];
         let c = this.checkers[checker];
@@ -207,43 +219,54 @@ export class GameBoard {
                 singles = this.checkAdjacent(topRow, leftCol, rightCol, checker);
             }
         }
+
         if (c.player === this.playerTwo || c.isKing) {
             jumps = jumps.concat(this.checkJumps(bottomRow, bottomRow + 1, leftCol, rightCol, leftCol - 1, rightCol + 1, c.player, checker));
             if (!jumps.length) {
                 singles = singles.concat(this.checkAdjacent(bottomRow, leftCol, rightCol, checker));
             }
         }
+
         return { singles: singles, jumps: jumps };
     }
 
-    checkAdjacent =  (row: number, left: number, right: number, i: any) => {
+    checkAdjacent = (row: number, left: number, right: number, i: any) => {
         let moves: { row: any; col: any; index: any; }[] = [];
+
         if (row >= this.board.length || row < 0) {
             return moves;
         }
+
         if (this.board[row][left] === null) {
             moves.push({ row: row, col: left, index: i });
         }
+
         if (this.board[row][right] === null) {
             moves.push({ row: row, col: right, index: i });
         }
+
         return moves;
     }
 
-    checkJumps =  (row: number, nextRow: number, left: number, right: number, nextLeft: number, nextRight: number, player: any, i: any) => {
+    checkJumps = (row: number, nextRow: number, left: number, right: number, nextLeft: number, nextRight: number, player: any, i: any) => {
         let moves: { row: any; col: any; index: any; }[] = [];
+
         if (row >= this.board.length || row < 0 || nextRow >= this.board.length ||
             nextRow < 0
         ) {
             return moves;
         }
+
         let adjacent = this.board[row][left];
+
         if (adjacent && this.checkers[adjacent].player !== player) {
             if (this.board[nextRow][nextLeft] === null) {
                 moves.push({ row: nextRow, col: nextLeft, index: i });
             }
         }
+
         adjacent = this.board[row][right];
+
         if (adjacent && this.checkers[adjacent].player !== player) {
             if (this.board[nextRow][nextRight] === null) {
                 moves.push({ row: nextRow, col: nextRight, index: i });
@@ -254,7 +277,7 @@ export class GameBoard {
         return moves;
     }
 
-    makeCheckers =  (): any[] => {
+    makeCheckers = (): any[] => {
         let checkers = [];
         let num = (this.size / 2) * 2;
         let row = this.size - 1, col = 0;
@@ -264,16 +287,20 @@ export class GameBoard {
                 --row;
                 col = i === this.size ? 0 : 1;
             }
+
             checkers.push({ player: this.playerOne, isKing: false, row: row, col: col, removed: false });
             col += 2
         }
+
         row = 0;
         col = 1;
+
         for (let i = 0; i < num; ++i) {
             if (i && i % (this.size / 2) === 0) {
                 ++row;
                 col = i === this.size ? 1 : 0;
             }
+
             checkers.push({ player: this.playerTwo, isKing: false, row: row, col: col, removed: false });
             col += 2
         }
