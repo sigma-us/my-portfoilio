@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect, } from 'react-router-
 // import ScrollToTop from './scroll-to-top'
 
 import Board from './projects/checkers/board';
-import Blog from './projects/blog/main';
+// import Blog from './projects/blog/main';
 import * as serviceWorker from './serviceWorker';
 interface MyWork {
     title: string,
@@ -61,9 +61,9 @@ ReactDOM.render(
                     <Route exact path='/checkers'>
                         <Board />
                     </Route>
-                    <Route exact path='/blog'>
+                    {/* <Route exact path='/blog'>
                         <Blog />
-                    </Route>
+                    </Route> */}
                     {/* Not Found */}
                     <Route route="*" component={() => <Redirect to="/" />} />
                 </Switch>
