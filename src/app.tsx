@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ExampleWorkBubble from './components/example-bubble'
 import { Link } from 'react-router-dom';
 
-class ExampleWork extends Component<any, any> {
+class App extends Component<any, any> {
     constructor(props: any) {
         super(props)
     }
@@ -10,7 +10,7 @@ class ExampleWork extends Component<any, any> {
     componentDidMount() {
         window.scrollTo(0, 0)
     }
-    
+
 
     render() {
 
@@ -64,8 +64,9 @@ class ExampleWork extends Component<any, any> {
                     <section className="section section--alignCentered section--description">
 
                         {this.props.work.map((example: any, i: string) => {
+                            console.log(example);
                             return (
-                                <Link key={i} to='/checkers'>
+                                <Link key={i} to={example.path}>
 
                                     <ExampleWorkBubble
                                         example={example}
@@ -92,31 +93,10 @@ class ExampleWork extends Component<any, any> {
                         and C++ because I wish to get more familiar with Computer Vision, Artificial Intelligence, and Machine Learning. This website is
                         being hosted with AWS S3 through CloudFront for decreased latency and increased scalability.
                     </p>
-
-                    <div className="background--skyBlue modal--closed">
-                        <span className="color--cloud modal__closeButton">
-                            <i className="fa fa-window-close-o"></i>
-                        </span>
-                        <img alt="example screenshot of a project involving code"
-                            className="modal__image"
-                            src="images/example1.png" />
-                        <div className="color--cloud modal__text">
-                            <h2 className="modal__title">
-                                Work Example Name
-                             </h2>
-                            <a className="color--skyBlue modal__link"
-                                href="#">
-                                Check it out
-                            </a>
-                            <p className="modal__description">
-                                A long description of the work in question.
-                            </p>
-                        </div>
-                    </div>
                 </section>
             </div>
         )
     }
 }
 
-export default ExampleWork;
+export default App;

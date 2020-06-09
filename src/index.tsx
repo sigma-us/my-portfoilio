@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ExampleWork from './example-work'
+import App from './app'
 import { BrowserRouter as Router, Route, Switch, Redirect, } from 'react-router-dom';
 // import ScrollToTop from './scroll-to-top'
 
 import Board from './projects/checkers/board';
+import Blog from './projects/blog/main';
 import * as serviceWorker from './serviceWorker';
 interface MyWork {
     title: string,
+    path: string,
     image: {
         desc: string,
         src: string,
@@ -19,21 +21,24 @@ interface MyWork {
 const myWork: MyWork[] = [
     {
         title: "React Checkers",
+        path: "/checkers",
         image: {
             desc: "example screenshot of react checkers frontend",
             src: "images/example1.png",
             comment: ""
         }
     }, {
-        title: "Coming Soon",
+        title: "Blog",
+        path: "/blog",
         image: {
-            desc: "A serverless portfolio",
+            desc: "A serverless blog",
             src: "images/example2.png",
             comment: ""
         }
 
     }, {
         title: "Stay Tuned For Meow",
+        path: "",
         image: {
             desc: "cat photo",
             src: "images/example3.png",
@@ -51,10 +56,13 @@ ReactDOM.render(
                 <Switch>
 
                     <Route exact path='/'>
-                        <ExampleWork work={myWork} />
+                        <App work={myWork} />
                     </Route>
                     <Route exact path='/checkers'>
                         <Board />
+                    </Route>
+                    <Route exact path='/blog'>
+                        <Blog />
                     </Route>
                     {/* Not Found */}
                     <Route route="*" component={() => <Redirect to="/" />} />
