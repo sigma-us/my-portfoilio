@@ -2,19 +2,17 @@
 
 const path = require('path');
 const { CheckerPlugin } = require('awesome-typescript-loader');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+// const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+
 
 
 module.exports = {
     mode: "development",
     entry: {
         main: './src/index.tsx',
-        // vendor: [
-        //     'react',
-        //     // 'react-dom',
-        //     // 'react-router',
-        //     // 'react-router-dom'
-        // ]
     },
     devtool: 'source-map',
     output: {
@@ -45,6 +43,9 @@ module.exports = {
         new CheckerPlugin(),
         new CleanWebpackPlugin(),
     ],
+    optimization: {
+        minimizer: []
+    },
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx']
     },
