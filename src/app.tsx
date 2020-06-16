@@ -87,11 +87,10 @@ class App extends Component<any, any> {
 
                 <section className="section section--alignCentered section--description">
                     <p className="color--darkgrey section__description">
-                        I have 3+ years experience in Full-Stack Web Development. I have been using AWS since the beginning and
-                        love to build cloud based micro-services. I have predominantly used Node.js the past 3 years however I am
-                        language agnostic and my CI/CD pipeline in AWS for this project is written using Golang. I am teaching myself Golang
-                        and C++ because I wish to get more familiar with Computer Vision, Artificial Intelligence, and Machine Learning. This website is
-                        being hosted with AWS S3 through CloudFront for decreased latency and increased scalability.
+                        I have 3+ years experience in Full-Stack Web Development and Cloud Architecture. I have been using AWS since the beginning and
+                        love to design and build custom solutions to solve problems in the most cost-efficient way possible without sacrificing performance. 
+                        I have predominantly used Node.js over past 3 years however I am language agnostic and exploring Golang and C++. This website is being 
+                        hosted on AWS CloudFront with Route 53 for decreased latency and increased availability.
                     </p>
                 </section>
             </div>
