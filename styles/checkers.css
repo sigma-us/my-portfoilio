@@ -59,12 +59,13 @@ html {
   height: 50px;
   border-radius: 100%;
   margin: 5px;
+  cursor: pointer;
+  transition: all 1s ease;
 }
 
 .selected .checker {
   margin-top: 2px;
   margin-left: 2px;
-  cursor: pointer;
 }
 
 .square-piece {
@@ -112,6 +113,7 @@ html {
   border: solid 2px lightskyblue;
   width: 56px;
   height: 56px;
+  cursor: pointer;
 }
 
 .selected {

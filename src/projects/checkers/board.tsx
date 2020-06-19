@@ -20,12 +20,16 @@ const Form = styled.form`
     display: flex;
     flex-direction: column;
     
-    padding-bottom: 20px;
-    text-align: right;
+    padding-top: 20px;
+    text-align: left;
 
     label {
         height: fit-content;
         padding: 6px;
+
+        input[type="button"] {
+            cursor: pointer;
+        }
     }
 `;
 
@@ -57,16 +61,83 @@ const BoardCol = styled.div`
     height: 100%;
 `;
 
+const Label = styled.label`
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    margin-right: 40px;
+    cursor: pointer;
+    font-size: 14px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    span {
+        position: absolute;
+        top: 2px;
+        right: -30px;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+        transition: background-color 0.5s ease;
+    }
+
+    /* On mouse-over, add a grey background color */
+    &:hover input ~ span {
+        background-color: #ccc;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    input:checked ~ span {
+        background-color: rgba(45,45,65,1);
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    span:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the checkmark when checked */
+    input:checked ~ span:after {
+        display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    span:after {
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+`;
+
 const Input = styled.input`
     height: ${params => params.type == "number" ? "29.5px" : "40px"};
     color: rgb(245, 245, 245);
     background-color: rgb(96, 96, 96);
-    width: ${params => params.type == "number" ? "50px" : "fit-content"};
+    width: ${params => params.type == "number" ? "32px" : "fit-content"};
     font-size: 1em;
     padding: 0.25em 1em;
     border: ${params => params.type == "number" ? "none"  : "2px solid rgb(30, 33, 40)"};
     border-bottom: ${params => params.type == "number" ? "2px solid rgb(30,33,40)"  : ""};
-    border-radius: 0px;
+    border-radius: 5px;
     letter-spacing: 0.7px;
     font-weight: 300;
     text-align: ${params => params.type == "number" ? "right": "center"};
@@ -75,6 +146,12 @@ const Input = styled.input`
     ::-webkit-outer-spin-button { 
       -webkit-appearance: none;
       margin: 0; /* Removes leftover margin */
+    }
+
+    transition: background-color 0.5s ease;
+
+    &:hover {
+        background-color: rgb(72, 72, 72);
     }
 
     &:focus {
@@ -87,6 +164,13 @@ const Input = styled.input`
     }
 
 `;
+
+
+const saveBtnStyle = {
+    display: 'flex',
+    justifyContent: "flex-end",
+    alignItems: "center"
+}
 
 export default class Board extends Component<any, any> {
     constructor(props: any) {
@@ -251,58 +335,69 @@ export default class Board extends Component<any, any> {
                     <label>
                         Board Size:
                         <Input type='number' value={this.state.boardSize} onChange={this.handleChange} />
-                        <Input type="submit" value="Resize/Reset Board" onClick={this.handleSubmit.bind(this)} />
+                        <Input type="button" value="Resize/Reset Board" onClick={this.handleSubmit.bind(this)} />
                     </label>
-                    <label>
+                    <Label>
                         Checker Default:
                         <input
                             type='radio'
                             value='default-shape'
                             checked={this.state.checkerShape === 'default-shape'}
                             onChange={this.onShapeChange.bind(this)}></input>
-                    </label>
-                    <label>
+                            <span></span>
+
+                    </Label>
+                    <Label>
                         Checker Square:
                         <input
                             type='radio'
                             value='square-piece'
                             checked={this.state.checkerShape === 'square-piece'}
                             onChange={this.onShapeChange.bind(this)}></input>
-                    </label>
-                    <label>
+                            <span></span>
+
+                    </Label>
+                    <Label>
                         Checker Oval:
                         <input
                             type='radio'
                             value='oval-piece'
                             checked={this.state.checkerShape === 'oval-piece'}
                             onChange={this.onShapeChange.bind(this)}></input>
-                    </label>
+                            <span></span>
+
+                    </Label>
                     <br />
-                    <label>
+                    <Label>
                         Color Default:
                         <input
                             type='radio'
                             value='default-color'
                             checked={this.state.checkerColor === 'default-color'}
                             onChange={this.onColorChange.bind(this)}></input>
-                    </label>
-                    <label>
+                            <span></span>
+
+                    </Label>
+                    <Label>
                         Light Blue and Pink:
                         <input
                             type='radio'
                             value='blue'
                             checked={this.state.checkerColor === 'blue'}
                             onChange={this.onColorChange.bind(this)}></input>
-                    </label>
-                    <label>
+                            <span></span>
+
+                    </Label>
+                    <Label>
                         Light Green and Yellow:
                         <input
                             type='radio'
                             value='green'
                             checked={this.state.checkerColor === 'green'}
                             onChange={this.onColorChange.bind(this)}></input>
-                    </label>
-                    <label>
+                            <span></span>
+                    </Label>
+                    <label style={saveBtnStyle}>
                         <Input type='button' value="Save Game" onClick={this.saveToLocal.bind(this)}></Input>
                     </label>
                 </Form>
