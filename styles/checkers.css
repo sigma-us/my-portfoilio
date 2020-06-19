@@ -1,21 +1,27 @@
-.app-container {
+/* .app-container {
   text-align: center;
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
   position: relative;
-  top: 70px;
-}
+  padding-top: 70px;
+  background-color: rgba(30,33,40,1);
+} */
 
-form {
+/* form {
   display: flex;
   flex-direction: column;
   height: 100%;
   padding-bottom: 20px;
+  text-align: right;
+} */
+
+html {
+  background-color: rgb(30, 33, 40);
+  /* background-color: rgb(45, 45, 45); */
 }
 
 .current {
-  height: 100%;
-  background-color: lightgray;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,16 +35,17 @@ form {
 .board {
   display: block;
   height: fit-content;
+  width: fit-content;
 }
 
 .row {
-  height: 40px;
+  height: 60px;
 }
 
 .square {
   display: inline-block;
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
 }
 
 .old-lace {
@@ -51,11 +58,10 @@ form {
 
 
 .checker {
-  width: 30px;
-  height: 30px;
+  width: 50px;
+  height: 50px;
   border-radius: 100%;
-  margin-top: 5px;
-  margin-left: 5px;
+  margin: 5px;
 }
 
 .selected .checker {
@@ -68,8 +74,12 @@ form {
 }
 
 .oval-piece {
-  width: 20px;
-  margin-left: 10px;
+  width: 30px;
+  margin-left: 15px;
+}
+
+.selected .oval-piece {
+  margin-left: 11px !important;
 }
 
 .player-two {
@@ -102,20 +112,20 @@ form {
 
 .suggested {
   border: solid 2px lightskyblue;
-  width: 36px;
-  height: 36px;
+  width: 56px;
+  height: 56px;
 }
 
 .selected {
   border: solid 3px yellow;
-  width: 34px;
-  height: 34px;
+  width: 54px;
+  height: 54px;
 }
 
 
 .player-one.king,
 .player-two.king {
-  box-shadow:
+  box-shadow: inset
     /* The top layer shadow */
     0 -1px 1px rgba(0, 0, 0, 0.55),
     /* The second layer */

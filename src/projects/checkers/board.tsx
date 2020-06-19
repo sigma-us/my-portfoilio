@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { GameBoard } from './gameBoard';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const P1 = 1;
 const P2 = 2;
@@ -14,6 +15,78 @@ const PLAYERS = {
         class: "player-two"
     }
 } as any;
+
+const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    
+    padding-bottom: 20px;
+    text-align: right;
+
+    label {
+        height: fit-content;
+        padding: 6px;
+    }
+`;
+
+const GameContainer = styled.div`
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    position: relative;
+    padding-top: 70px;
+    display: flex;
+    
+    justify-content: space-around;
+    flex-wrap: wrap;
+    height: fit-content;
+    background-color: rgba(30,33,40,1);
+    color: white;
+    letter-spacing: 1.7px;
+    font-weight: 100;
+
+
+`;
+
+const BoardCol = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 60vw;
+    height: 100%;
+`;
+
+const Input = styled.input`
+    height: ${params => params.type == "number" ? "29.5px" : "40px"};
+    color: rgb(245, 245, 245);
+    background-color: rgb(96, 96, 96);
+    width: ${params => params.type == "number" ? "50px" : "fit-content"};
+    font-size: 1em;
+    padding: 0.25em 1em;
+    border: ${params => params.type == "number" ? "none"  : "2px solid rgb(30, 33, 40)"};
+    border-bottom: ${params => params.type == "number" ? "2px solid rgb(30,33,40)"  : ""};
+    border-radius: 0px;
+    letter-spacing: 0.7px;
+    font-weight: 300;
+    text-align: ${params => params.type == "number" ? "right": "center"};
+
+    &::-webkit-inner-spin-button, 
+    ::-webkit-outer-spin-button { 
+      -webkit-appearance: none;
+      margin: 0; /* Removes leftover margin */
+    }
+
+    &:focus {
+        border: ${params => params.type == "number" ? "none"  : "2px solid rgb(30, 33, 40)"};
+        border-bottom: ${params => params.type == "number" ? "2px solid rgb(30,33,40)"  : ""};
+        outline: none;
+    }
+    &:active {
+        transform: ${params => params.type == "number" ? "none"  : "scale(0.99)"};
+    }
+
+`;
 
 export default class Board extends Component<any, any> {
     constructor(props: any) {
@@ -71,7 +144,7 @@ export default class Board extends Component<any, any> {
         if (saveState !== null) {
             saveState = JSON.parse(saveState);
             // keep class methods from board this is required because local storage is saves as a string and removes the class functions
-            saveState.board = {...this.state.board, ...saveState.board}; 
+            saveState.board = { ...this.state.board, ...saveState.board };
             saveState.board.setCheckers(saveState.board.checkers);
             saveState.board.setBoard(saveState.board.board);
             this.setState(saveState);
@@ -167,17 +240,18 @@ export default class Board extends Component<any, any> {
     saveToLocal() {
         const local = this.state;
         localStorage.setItem('game', JSON.stringify(local));
+        alert("Game Saved");
     }
 
     render() {
 
         return (
-            <div className='app-container'>
-                <form>
+            <GameContainer>
+                <Form>
                     <label>
                         Board Size:
-                        <input type='number' value={this.state.boardSize} onChange={this.handleChange} />
-                        <input type="submit" value="Resize/Reset Board" onClick={this.handleSubmit.bind(this)} />
+                        <Input type='number' value={this.state.boardSize} onChange={this.handleChange} />
+                        <Input type="submit" value="Resize/Reset Board" onClick={this.handleSubmit.bind(this)} />
                     </label>
                     <label>
                         Checker Default:
@@ -229,11 +303,11 @@ export default class Board extends Component<any, any> {
                             onChange={this.onColorChange.bind(this)}></input>
                     </label>
                     <label>
-                        <input type='button' value="Save Game" onClick={this.saveToLocal.bind(this)}></input>
+                        <Input type='button' value="Save Game" onClick={this.saveToLocal.bind(this)}></Input>
                     </label>
-                </form>
+                </Form>
 
-                <div className='boardContainer'>
+                <BoardCol>
                     <div className='current'>
                         <h3>Current Turn: {PLAYERS[this.state.turn].name}</h3>
                         <Piece
@@ -256,13 +330,9 @@ export default class Board extends Component<any, any> {
                             checkerColor={this.state.checkerColor}
                             suggestedMoves={this.state.suggestedMoves}></Game>
                     }
-                </div>
-                <div className='home-btn'>
-                    <Link to="/">
-                        <button type='button'>Home</button>
-                    </Link>
-                </div>
-            </div>
+                </BoardCol>
+                
+            </GameContainer>
         )
     }
 }
