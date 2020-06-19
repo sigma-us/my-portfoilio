@@ -18,6 +18,7 @@ const TextContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    border: none;
 `
 
 const PostContainer = styled.div`
@@ -27,6 +28,8 @@ const PostContainer = styled.div`
     background-color: ${DarkBackGroundColor};
     height: fit-content;
     padding-bottom: 60px;
+    border: none;
+
 `
 
 const Post = styled.div`
@@ -87,6 +90,20 @@ const AboutMeText = styled.div`
 
 `
 
+const AboutMeHeading = styled.div`
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(30, 33, 40, 1);
+    height: 600px;
+    font-size: 70px;
+    color: white;
+    text-align: center;
+    font-weight: 200;
+    letter-spacing: 0.7px;
+`
+
 const linkStyle = {
     color: 'inherit',
     textDecoration: 'none',
@@ -125,12 +142,10 @@ class App extends Component<any, any> {
                     {/* <Post></Post>
                     <Post></Post> */}
                 </PostContainer>
-
-                <section className="background--skyBlue section">
-                    <h2 className="color--cloud margin--none section__text--centered">
-                        About Me
-                    </h2>
-                </section>
+                
+                <AboutMeHeading>
+                    About Me
+                </AboutMeHeading>
 
                 <AboutMeText>
                     <div>
