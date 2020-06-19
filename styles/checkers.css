@@ -28,15 +28,12 @@ html {
   padding-bottom: 20px;
 }
 
-.home-btn {
-  padding-top: 40px;
-}
-
+/* 
 .board {
   display: block;
   height: fit-content;
   width: fit-content;
-}
+} */
 
 .row {
   height: 60px;
@@ -67,6 +64,7 @@ html {
 .selected .checker {
   margin-top: 2px;
   margin-left: 2px;
+  cursor: pointer;
 }
 
 .square-piece {
