@@ -30,6 +30,9 @@ const Form = styled.form`
         input[type="button"] {
             cursor: pointer;
         }
+        input[type="submit"] {
+            cursor: pointer;
+        }
     }
 `;
 
@@ -89,7 +92,7 @@ const Label = styled.label`
         height: 25px;
         width: 25px;
         background-color: #eee;
-        transition: background-color 0.5s ease;
+        transition: all 0.5s ease;
     }
 
     /* On mouse-over, add a grey background color */
@@ -335,7 +338,7 @@ export default class Board extends Component<any, any> {
                     <label>
                         Board Size:
                         <Input type='number' value={this.state.boardSize} onChange={this.handleChange} />
-                        <Input type="button" value="Resize/Reset Board" onClick={this.handleSubmit.bind(this)} />
+                        <Input type="submit" value="Resize/Reset Board" onClick={this.handleSubmit.bind(this)} />
                     </label>
                     <Label>
                         Checker Default:

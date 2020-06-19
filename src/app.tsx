@@ -6,12 +6,13 @@ import styled from 'styled-components';
 
 const AppC = styled.div`
     position: relative;
-    top 62px;
+    // top 62px;
+
 `
 const DarkBackGroundColor = 'rgb(30, 33, 39)';
 
 const TextContainer = styled.div`
-    height: 50vh;
+    height: 65vh;
     // background-color: ${DarkBackGroundColor};
     font-position: center;
     font-size: 50px;
@@ -30,15 +31,13 @@ const PostContainer = styled.div`
     justify-content: center;
     background-color: ${DarkBackGroundColor};
     height: fit-content;
-    padding-bottom: 60px;
+    padding: 60px 0px 60px 0px;
     border: none;
 
 `
 
 const Post = styled.div`
     border-radius: 5px 5px 5px 5px;
-    // filter: drop-shadow(0 0 30px white);
-
     position: relative;
     height: 650px;
     width: 500px;
@@ -86,6 +85,7 @@ const AboutMeText = styled.div`
     align-items: center;
     font-size: 30px;
     text-align: center;
+    background-color: white;
 
     div {
         width: 800px;
