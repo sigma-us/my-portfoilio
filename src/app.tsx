@@ -1,6 +1,96 @@
 import React, { Component } from 'react';
-import ExampleWorkBubble from './components/example-bubble'
+// import ExampleWorkBubble from './components/example-bubble'
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+
+
+const AppC = styled.div`
+    position: relative;
+    top 62px;
+`
+const DarkBackGroundColor = 'rgb(30, 33, 39)';
+
+const TextContainer = styled.div`
+    height: 50vh;
+    background-color: ${DarkBackGroundColor};
+    font-position: center;
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
+const PostContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: ${DarkBackGroundColor};
+    height: fit-content;
+    padding-bottom: 60px;
+`
+
+const Post = styled.div`
+    border-radius: 5px 5px 5px 5px;
+    // filter: drop-shadow(0 0 30px white);
+
+    position: relative;
+    height: 650px;
+    width: 500px;
+    margin: 4px;
+    background-image: ${params => params.title ? `url("../images/${params.title}.png")` : `url("../images/${params.title}.png")`};
+    background-position: center center;
+    background-size: cover;
+
+    transition: all 0.3s ease;
+    
+    &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(30, 33, 39, 0.96) 40%, rgba(42, 157, 255, 0.96) 100%);
+    }
+
+    box-shadow: 0px 0px 0px 0 rgba(255,255,255,0.5);
+
+    &:hover {
+        box-shadow: 4px 4px 6px 0 rgba(255,255,255,0.5);
+        cursor: pointer;
+    }
+`
+
+const Title = styled.div`
+    position: relative;
+    top: 40px;
+    left 40px;
+    font-size: 40px;
+    font-weight: 100;
+    letter-spacing: 0.7px;
+    color: white;
+    z-index: 2;
+`
+const AboutMeText = styled.div`
+    font-weight: 100;
+    letter-spacing: 0.7px;
+    padding: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    text-align: center;
+
+    div {
+        width: 800px;
+    }
+
+`
+
+const linkStyle = {
+    color: 'inherit',
+    textDecoration: 'none',
+}
 
 class App extends Component<any, any> {
     constructor(props: any) {
@@ -15,69 +105,26 @@ class App extends Component<any, any> {
     render() {
 
         return (
-            <div>
-                <main className="overflow--auto">
-                    <h1 className="color--skyBlue section__heading--largest">
-                        Kyle Conley
-                    </h1>
-
-                    <ul className="section--social">
-
-
-                        <li className="socialWrapper">
-                            <a className="color--skyBlue social"
-                                title="LinkedIn Profile"
-                                target="_blank"
-                                href="https://linkedin.com/in/kyle-conley">
-                                <i className="fa fa-linkedin"></i>
-                            </a>
-                        </li>
-
-                        {/* <!-- Link to GitHub profile --> */}
-                        <li className="socialWrapper color--skyBlue">
-                            <a className="social color--skyBlue"
-                                title="GitHub Profile"
-                                target="_blank"
-                                href="https://github.com/sigma-us">
-                                <i className="fa fa-github"></i>
-                            </a>
-                        </li>
-
-                        {/* <!-- Link to resume, probably a .pdf --> */}
-                        {/* <li className="socialWrapper">
-                            <a className="social color--skyBlue"
-                                title="Resume"
-                                href="#">
-                                <i className="fa fa-file-text"></i>
-                            </a>
-                        </li>  */}
-                    </ul>
-                </main>
-
-                <section className="background--skyBlue section">
-                    <h2 className="color--cloud margin--none section__text--centered">
-                        🚧 👷🏻‍♂️🐒 Portfolio Under Construction: 🦍👋🏻 🚧
-                    </h2>
-                </section>
-
-                <div id='example-work'>
-                    <section className="section section--alignCentered section--description">
-
-                        {this.props.work.map((example: any, i: string) => {
-                            console.log(example);
-                            return (
-                                <Link key={i} to={example.path}>
-
-                                    <ExampleWorkBubble
-                                        example={example}
-                                        key={i} />
-                                </Link>
-                            )
-                        })}
-
-                    </section>
-                </div>
-
+            <AppC>
+                <TextContainer>
+                    🚧 👷🏻‍♂️🐒 🦍👋🏻 🚧
+                </TextContainer>
+                <PostContainer>
+                    <Link to="/checkers" style={linkStyle}>
+                        <Post title="example4">
+                            <Title>
+                                React Checkers
+                            </Title>
+                        </Post>
+                    </Link>
+                    <Post title="example3">
+                        <Title>
+                            Coming Soon
+                        </Title>
+                    </Post>
+                    {/* <Post></Post>
+                    <Post></Post> */}
+                </PostContainer>
 
                 <section className="background--skyBlue section">
                     <h2 className="color--cloud margin--none section__text--centered">
@@ -85,15 +132,15 @@ class App extends Component<any, any> {
                     </h2>
                 </section>
 
-                <section className="section section--alignCentered section--description">
-                    <p className="color--darkgrey section__description">
+                <AboutMeText>
+                    <div>
                         I have 3+ years experience in Full-Stack Web Development and Cloud Architecture. I have been using AWS since the beginning and
-                        love to design and build custom solutions to solve problems in the most cost-efficient way possible without sacrificing performance. 
-                        I have predominantly used Node.js over past 3 years however I am language agnostic and exploring Golang and C++. This website is being 
+                        love to design and build custom solutions to solve problems in the most cost-efficient way possible without sacrificing performance.
+                        I have predominantly used Node.js over past 3 years however I am language agnostic and exploring Golang and C++. This website is being
                         hosted on AWS CloudFront with Route 53 for decreased latency and increased availability.
-                    </p>
-                </section>
-            </div>
+                    </div>
+                </AboutMeText>
+            </AppC>
         )
     }
 }

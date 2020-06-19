@@ -2,6 +2,8 @@
   text-align: center;
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
+  position: relative;
+  top: 70px;
 }
 
 form {
