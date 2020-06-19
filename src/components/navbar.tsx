@@ -34,7 +34,8 @@ const RightNav = styled.div`
 `
 
 const LeftNav = styled.div`
-
+    color: inherit;
+    text-decoration: none;
 `
 
 export enum Types {
@@ -68,14 +69,16 @@ export default class NavBar extends Component<NavProps, any> {
         return (
             <Navbar>
                 <LeftNav>
-                    Kyle Conley
+                    <Link to="/" style={linkStyle}>
+                        Kyle Conley
+                    </Link>
                 </LeftNav>
                 <RightNav>
                     {this.props.list.map((item: NavItem, i: number) => {
                         return (
                             <Link key={i} to={item.path || ''} style={linkStyle}>
                                 {/* <div> */}
-                                    {item.title}
+                                {item.title}
                                 {/* </div> */}
                             </Link>
                         )

@@ -12,13 +12,16 @@ const DarkBackGroundColor = 'rgb(30, 33, 39)';
 
 const TextContainer = styled.div`
     height: 50vh;
-    background-color: ${DarkBackGroundColor};
+    // background-color: ${DarkBackGroundColor};
     font-position: center;
     font-size: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     border: none;
+    background-image: url("../images/spacex.jpg");
+    background-position: center center;
+    background-size: cover;
 `
 
 const PostContainer = styled.div`
@@ -124,7 +127,7 @@ class App extends Component<any, any> {
         return (
             <AppC>
                 <TextContainer>
-                    🚧 👷🏻‍♂️🐒 🦍👋🏻 🚧
+                    🚧🚧
                 </TextContainer>
                 <PostContainer>
                     <Link to="/checkers" style={linkStyle}>
