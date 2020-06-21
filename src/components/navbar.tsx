@@ -41,6 +41,13 @@ const MobileNav = styled.div`
     font-size: 96px;
     text-align: center;
     padding: 8px;
+    transition: all 500ms linear;
+
+    &.transparent {
+        background-color: transparent;
+        box-shadow: none;
+        color: rgb(245, 245, 245);
+    }
 
     div, i {
         padding: 16px;
@@ -67,6 +74,8 @@ const MobileMenu = styled.div`
     justify-content: flex-start;
     font-size: 9em;
     visibility: hidden;
+
+    
 
     &.visible {
         i {
@@ -256,7 +265,7 @@ export default class NavBar extends Component<NavProps, any> {
         } else {
             return (
                 <div>
-                    <MobileNav>
+                    <MobileNav className={this.state.scrollPosition > 0.00 ? "transparent" : "white"}>
                         <div>
                             <Link to="/" style={linkStyle}>
                                 KC

@@ -66,8 +66,18 @@ const BoardCol = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 60vw;
-    height: 100%;
+    width: fit-content;
+    min-width: 800px;
+    // height: 100%;
+
+    .board {
+        display: block;
+        height: fit-content;
+        width: fit-content;
+        box-shadow: 16px 16px 8px 0 rgb(0,0,0);
+        border-radius: 10px;
+        border: 3px solid rgb(0,0,0);
+      }
     
 `;
 
@@ -151,6 +161,7 @@ const Input = styled.input`
     letter-spacing: 0.7px;
     font-weight: 300;
     text-align: ${params => params.type == "number" ? "right": "center"};
+    text-decoration: none;
 
     &::-webkit-inner-spin-button, 
     ::-webkit-outer-spin-button { 
