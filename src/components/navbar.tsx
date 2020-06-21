@@ -28,12 +28,91 @@ const Navbar = styled.div`
 
 const MobileNav = styled.div`
     position: fixed;
-    z-index: 999999999999;
-    width: 96px;
+    display: flex;
+    width: 100vw;
+    align-items: center;
+    justify-content: space-between;
+    right: 0px;
+    // bottom: 0px;
+    z-index: 999;
     height: 96px;
-    color: white;
-    background: gray;
-    font-size: 90px;
+    color: black;
+    background: white;
+    font-size: 96px;
+    text-align: center;
+    padding: 8px;
+
+    div, i {
+        padding: 16px;
+    }
+
+    i:hover {
+        cursor: pointer;
+    }
+`;
+
+const MobileMenu = styled.div`
+    position: fixed;
+    z-index: 99999;
+    top: 0px;
+    right: 0px;
+    width: 0px;
+    height: 100vh;
+    background-color: rgba(95, 95, 95, 0.8);
+    transition: width 0.5s ease-in-out, background-color 0.5s linear, visibility 0.5s linear, font-size 0.45s ease-in-out;
+    // transition: all 500ms ease;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    font-size: 9em;
+    visibility: hidden;
+
+    &.visible {
+        i {
+            font-size: 96px;
+            height: 96px;
+
+        }
+
+        width: 101%;
+        background-color: rgba(75, 75, 75, 1);
+        visibility: visible;
+        a {
+            padding: 32px 32px 32px 0px !important;;
+        }
+        
+    }
+
+    &.hidden {
+        i {
+            font-size: 8px;
+            height: 8px;
+            visibility: hidden;
+        }
+
+        visibility: hidden;
+        width: 0px;
+        font-size: 0px;
+    }
+    
+    i {
+        width: calc(100% - 32px);
+        height: 0px;
+        color: black;
+        font-size: 0px;
+        text-align: right;
+        padding: 16px;
+        transition: all 500ms ease-in-out;
+    }
+    a {
+        text-align: right;
+        width: 100%;
+
+        padding-right: 32px !important;
+    }
+    
+
 `;
 
 
@@ -78,7 +157,9 @@ export default class NavBar extends Component<NavProps, any> {
         this.state = {
             scrollPosition: 0,
             mobileNav: false,
+            visible: false
         }
+        this.toggleMenu = this.toggleMenu.bind(this);
     }
 
     componentDidMount() {
@@ -125,18 +206,24 @@ export default class NavBar extends Component<NavProps, any> {
 
     }
 
+    toggleMenu() {
+        this.setState({
+            visible: !this.state.visible
+        })
+    }
+
 
     render() {
 
-        // if (this.state.mobileNav == false) {
-        if (true) {
+        if (this.state.mobileNav == false) {
+            // if (true) {
 
             return (
                 <Navbar className={this.state.scrollPosition > 0.00 ? "transparent" : "white"}>
                     <LeftNav>
                         <Link to="/" style={linkStyle}>
                             Kyle Conley
-                    </Link>
+                        </Link>
                     </LeftNav>
                     <RightNav>
                         {this.props.list.map((item: NavItem, i: number) => {
@@ -168,9 +255,26 @@ export default class NavBar extends Component<NavProps, any> {
             )
         } else {
             return (
-                <MobileNav>
-                    <i className="fa fa-bars" aria-hidden="true"></i>
-                </MobileNav>
+                <div>
+                    <MobileNav>
+                        <div>
+                            <Link to="/" style={linkStyle}>
+                                KC
+                            </Link>
+                        </div>
+                        <i className="fa fa-bars"
+                            aria-hidden="true"
+                            onClick={this.toggleMenu}></i>
+                    </MobileNav>
+                    <MobileMenu className={this.state.visible ? "visible" : "hidden"}>
+                        <i className="fa fa-close"
+                            aria-hidden="true"
+                            onClick={this.toggleMenu}></i>
+                        <Link to="/" style={linkStyle} onClick={this.toggleMenu}>Home</Link>
+                        <Link to="/checkers" style={linkStyle} onClick={this.toggleMenu}>Checkers</Link>
+                        <Link to="/3js" style={linkStyle} onClick={this.toggleMenu}>ThreeJS</Link>
+                    </MobileMenu>
+                </div >
             )
         }
 
