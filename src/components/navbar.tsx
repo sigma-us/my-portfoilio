@@ -128,7 +128,8 @@ export default class NavBar extends Component<NavProps, any> {
 
     render() {
 
-        if (this.state.mobileNav == false) {
+        // if (this.state.mobileNav == false) {
+        if (true) {
 
             return (
                 <Navbar className={this.state.scrollPosition > 0.00 ? "transparent" : "white"}>
