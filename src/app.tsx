@@ -166,14 +166,14 @@ class App extends Component<any, any> {
                     <Link to="/checkers" style={linkStyle}>
                         <Post title="example4">
                             <Title>
-                                React Checkers
+                                Checkers (React.js)
                             </Title>
                         </Post>
                     </Link>
                     <Link to="/3js" style={linkStyle}>
                         <Post title="example3">
                             <Title>
-                                Coming Soon
+                                ThreeJS (React.js)
                         </Title>
                         </Post>
                     </Link>
