@@ -12,6 +12,11 @@ const AppC = styled.div`
 const DarkBackGroundColor = 'rgb(30, 33, 39)';
 
 const TextContainer = styled.div`
+    position: fixed;
+    top: 0px;
+    z-index: 1;
+    left: 0px;
+    width: 100%;
     height: 65vh;
     // background-color: ${DarkBackGroundColor};
     font-position: center;
@@ -24,8 +29,13 @@ const TextContainer = styled.div`
     background-position: center center;
     background-size: cover;
 `
+const GhostContainer = styled.div`
+    width: 100%;
+    height: 65vh;
+`;
 
 const PostContainer = styled.div`
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -33,6 +43,7 @@ const PostContainer = styled.div`
     height: fit-content;
     padding: 60px 0px 60px 0px;
     border: none;
+    z-index: 2;
 
 `
 
@@ -79,6 +90,7 @@ const Title = styled.div`
     z-index: 2;
 `
 const AboutMeText = styled.div`
+    position: relative;
     font-weight: 100;
     letter-spacing: 0.7px;
     line-height: 32px;
@@ -88,7 +100,8 @@ const AboutMeText = styled.div`
     align-items: center;
     font-size: 24px;
     text-align: left;
-    background-color: inherit;
+    background-color: rgb(30,33,40);
+    z-index: 2;
 
     div {
         width: 800px;
@@ -104,6 +117,7 @@ const AboutMeText = styled.div`
 `
 
 const AboutMeHeading = styled.div`
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -114,6 +128,7 @@ const AboutMeHeading = styled.div`
     text-align: center;
     font-weight: 200;
     letter-spacing: 0.7px;
+    z-index: 2;
 `
 
 const linkStyle = {
@@ -138,6 +153,7 @@ class App extends Component<any, any> {
                 <TextContainer>
                     🚧🚧
                 </TextContainer>
+                <GhostContainer></GhostContainer>
                 <PostContainer>
                     <Link to="/checkers" style={linkStyle}>
                         <Post title="example4">
