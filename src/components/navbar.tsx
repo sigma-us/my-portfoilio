@@ -66,7 +66,7 @@ const MobileMenu = styled.div`
     width: 0px;
     height: 100vh;
     background-color: rgba(95, 95, 95, 0.8);
-    transition: width 0.5s ease-in-out, background-color 0.5s linear, visibility 0.5s linear, font-size 0.45s ease-in-out;
+    transition: width 0.2s ease-in-out, background-color 0.2s linear, visibility 0.2s linear, font-size 0.2s ease-in-out;
     // transition: all 500ms ease;
     display: flex;
     flex-direction: column;
@@ -112,7 +112,7 @@ const MobileMenu = styled.div`
         font-size: 0px;
         text-align: right;
         padding: 16px;
-        transition: all 500ms ease-in-out;
+        transition: all 200ms ease-in-out;
     }
     a {
         text-align: right;
