@@ -50,7 +50,7 @@ const PostContainer = styled.div`
 const Post = styled.div`
     border-radius: 12px;
     position: relative;
-    height: 450px;
+    height: 250px;
     width: 500px;
     margin: 8px;
     background-image: ${params => params.title ? `url("../images/${params.title}.png")` : `url("../images/${params.title}.png")`};

@@ -28,10 +28,10 @@ const Form = styled.form`
         height: fit-content;
         padding: 6px;
 
-        input[type="button"] {
+        input[type='button'] {
             cursor: pointer;
         }
-        input[type="submit"] {
+        input[type='submit'] {
             cursor: pointer;
         }
     }
@@ -57,8 +57,6 @@ const GameContainer = styled.div`
     color: white;
     letter-spacing: 1.7px;
     font-weight: 100;
-
-
 `;
 
 const BoardCol = styled.div`
