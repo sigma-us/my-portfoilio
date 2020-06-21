@@ -145,15 +145,17 @@ class App extends Component<any, any> {
                             </Title>
                         </Post>
                     </Link>
-                    <Post title="example3">
-                        <Title>
-                            Coming Soon
+                    <Link to="/3js" style={linkStyle}>
+                        <Post title="example3">
+                            <Title>
+                                Coming Soon
                         </Title>
-                    </Post>
+                        </Post>
+                    </Link>
                     {/* <Post></Post>
                     <Post></Post> */}
                 </PostContainer>
-                
+
                 <AboutMeHeading>
                     About Me
                 </AboutMeHeading>

@@ -11,19 +11,29 @@ const Navbar = styled.div`
     justify-content: space-between;
     width: calc(100vw - 32px);
     height: 30px;
-    background: white;
+    background-color: white;
     color: rgb(30, 33, 39);
     padding: 16px;
     font-size: 24px;
     box-shadow: 0 5px 12px -6px rgba(0,0,0,0.7);
     letter-spacing: 0.7px;
-    transition: all 1s ease;
+    transition: background-color 1s ease-out, color 1s ease;
 
     &.transparent {
         background-color: transparent;
         box-shadow: none;
         color: rgb(245, 245, 245);
     }
+`;
+
+const MobileNav = styled.div`
+    position: fixed;
+    z-index: 999999999999;
+    width: 96px;
+    height: 96px;
+    color: white;
+    background: gray;
+    font-size: 90px;
 `;
 
 
@@ -66,16 +76,37 @@ export default class NavBar extends Component<NavProps, any> {
     constructor(props: NavProps) {
         super(props);
         this.state = {
-            scrollPosition: 0
+            scrollPosition: 0,
+            mobileNav: false,
         }
     }
 
     componentDidMount() {
         window.addEventListener('scroll', this.listenToScroll);
+        window.addEventListener('resize', this.resizeListener);
+        if (Math.abs(window.screenX) < 700) {
+            this.setState({
+                mobileNav: true
+            })
+        }
     }
 
     componentWillUnmount() {
         window.removeEventListener('scroll', this.listenToScroll);
+        window.removeEventListener('resize', this.resizeListener);
+
+    }
+
+    resizeListener = () => {
+        if (window.screenX > -700) {
+            this.setState({
+                mobileNav: true
+            })
+        } else {
+            this.setState({
+                mobileNav: false
+            })
+        }
     }
 
     listenToScroll = () => {
@@ -94,46 +125,53 @@ export default class NavBar extends Component<NavProps, any> {
 
     }
 
-    buildNav = (list: NavItem) => {
-        console.log(list);
-    }
-
 
     render() {
-        return (
-            <Navbar className={this.state.scrollPosition > 0.00 ? "transparent" : "white"}>
-                <LeftNav>
-                    <Link to="/" style={linkStyle}>
-                        Kyle Conley
-                    </Link>
-                </LeftNav>
-                <RightNav>
-                    {this.props.list.map((item: NavItem, i: number) => {
-                        return (
-                            <Link key={i} to={item.path || ''} style={linkStyle}>
-                                {/* <div> */}
-                                {item.title}
-                                {/* </div> */}
-                            </Link>
-                        )
-                    })}
-                    <a className="color--skyBlue social"
-                        title="LinkedIn Profile"
-                        target="_blank"
-                        style={linkStyle}
-                        href="https://linkedin.com/in/kyle-conley">
-                        <i className="fa fa-linkedin"></i>
-                    </a>
 
-                    <a className="social color--skyBlue"
-                        title="GitHub Profile"
-                        target="_blank"
-                        style={linkStyle}
-                        href="https://github.com/sigma-us">
-                        <i className="fa fa-github"></i>
-                    </a>
-                </RightNav>
-            </Navbar>
-        )
+        if (this.state.mobileNav == false) {
+
+            return (
+                <Navbar className={this.state.scrollPosition > 0.00 ? "transparent" : "white"}>
+                    <LeftNav>
+                        <Link to="/" style={linkStyle}>
+                            Kyle Conley
+                    </Link>
+                    </LeftNav>
+                    <RightNav>
+                        {this.props.list.map((item: NavItem, i: number) => {
+                            return (
+                                <Link key={i} to={item.path || ''} style={linkStyle}>
+                                    {/* <div> */}
+                                    {item.title}
+                                    {/* </div> */}
+                                </Link>
+                            )
+                        })}
+                        <a className="color--skyBlue social"
+                            title="LinkedIn Profile"
+                            target="_blank"
+                            style={linkStyle}
+                            href="https://linkedin.com/in/kyle-conley">
+                            <i className="fa fa-linkedin"></i>
+                        </a>
+
+                        <a className="social color--skyBlue"
+                            title="GitHub Profile"
+                            target="_blank"
+                            style={linkStyle}
+                            href="https://github.com/sigma-us">
+                            <i className="fa fa-github"></i>
+                        </a>
+                    </RightNav>
+                </Navbar>
+            )
+        } else {
+            return (
+                <MobileNav>
+                    <i className="fa fa-bars" aria-hidden="true"></i>
+                </MobileNav>
+            )
+        }
+
     }
 }

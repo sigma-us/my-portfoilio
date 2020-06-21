@@ -5,7 +5,8 @@ import { BrowserRouter as Router, Route, Switch, Redirect, } from 'react-router-
 // import ScrollToTop from './scroll-to-top'
 
 import Board from './projects/checkers/board';
-import NavBar, { Types } from './components/navbar'
+import NavBar, { Types } from './components/navbar';
+import ThreeJS from './components/threeJS';
 // import Blog from './projects/blog/main';
 import * as serviceWorker from './serviceWorker';
 interface MyWork {
@@ -69,8 +70,8 @@ ReactDOM.render(
                     <Route exact path='/checkers'>
                         <Board />
                     </Route>
-                    <Route exact path='/services'>
-
+                    <Route exact path='/3js'>
+                        <ThreeJS></ThreeJS>
                     </Route>
                     {/* Not Found */}
                     <Route route="*" component={() => <Redirect to="/" />} />
