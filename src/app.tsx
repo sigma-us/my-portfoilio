@@ -107,7 +107,7 @@ const AboutMeText = styled.div`
     font-size: 24px;
     text-align: left;
     background-color: rgb(30,33,40);
-    z-index: 2;
+    z-index: 4;
 
     div {
         width: 800px;
@@ -118,8 +118,6 @@ const AboutMeText = styled.div`
         background-color: rgb(45,45,45);
         color: rgb(255,255,255);
         box-shadow: 2px 2px 2px 0px rgb(0,0,0);
-        position: relative;
-        z-index: 2;
     }
 
 `
