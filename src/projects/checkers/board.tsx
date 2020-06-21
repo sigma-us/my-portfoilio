@@ -47,7 +47,7 @@ const GameContainer = styled.div`
     font-family: 'Montserrat', sans-serif;
     font-size: 14px;
     position: relative;
-    padding-top: 70px;
+    padding-top: 128px;
     display: flex;
     
     justify-content: space-around;
