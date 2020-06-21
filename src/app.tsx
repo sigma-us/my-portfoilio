@@ -41,7 +41,7 @@ const Post = styled.div`
     position: relative;
     height: 450px;
     width: 500px;
-    margin: 4px;
+    margin: 8px;
     background-image: ${params => params.title ? `url("../images/${params.title}.png")` : `url("../images/${params.title}.png")`};
     background-position: center center;
     background-size: cover;
@@ -60,10 +60,10 @@ const Post = styled.div`
         background: linear-gradient(135deg, rgba(30, 33, 39, 0.96) 40%, rgba(42, 157, 255, 0.96) 100%);
     }
 
-    box-shadow: 0px 0px 0px 0 rgba(255,255,255,0.5);
+    box-shadow: 2px 2px 2px 0 rgba(0,0,0,1);
 
     &:hover {
-        box-shadow: 4px 4px 6px 0 rgba(255,255,255,0.5);
+        box-shadow: 8px 8px 8px 0 rgba(0,0,0,1);
         cursor: pointer;
     }
 `
@@ -98,6 +98,7 @@ const AboutMeText = styled.div`
         padding: 32px 32px 96px 32px;
         background-color: rgb(45,45,45);
         color: rgb(255,255,255);
+        box-shadow: 2px 2px 2px 0px rgb(0,0,0);
     }
 
 `
