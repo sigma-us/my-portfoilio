@@ -67,7 +67,7 @@ export default class ThreeJS extends Component<any, any> {
 
         // attributes
         var positions = new Float32Array(MAX_POINTS * 3); // 3 vertices per point
-        geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
         // drawcalls
         drawCount = 2; // draw the first 2 points, only
