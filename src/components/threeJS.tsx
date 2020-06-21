@@ -38,7 +38,6 @@ export default class ThreeJS extends Component<any, any> {
 
     init = () => {
         // info
-        this.info = document.createElement('div');
         this.info.style.position = 'absolute';
         this.info.style.top = '30px';
         this.info.style.width = '100%';
