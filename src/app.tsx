@@ -37,7 +37,7 @@ const PostContainer = styled.div`
 `
 
 const Post = styled.div`
-    border-radius: 5px 5px 5px 5px;
+    border-radius: 12px;
     position: relative;
     height: 450px;
     width: 500px;
@@ -55,6 +55,8 @@ const Post = styled.div`
         left: 0;
         right: 0;
         bottom: 0;
+        border-radius: 10px;
+
         background: linear-gradient(135deg, rgba(30, 33, 39, 0.96) 40%, rgba(42, 157, 255, 0.96) 100%);
     }
 

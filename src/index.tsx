@@ -83,7 +83,6 @@ ReactDOM.render(
 render();
 
 if (module.hot) {
-    console.log('module hot')
     console.log(module)
     module.hot.accept();
   }
