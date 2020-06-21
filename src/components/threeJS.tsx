@@ -102,7 +102,7 @@ export default class ThreeJS extends Component<any, any> {
 
             x += (Math.random() - 0.5) * 30;
             y += (Math.random() - 0.5) * 30;
-            z += (Math.random() - 0.5) * 30;
+            z += (Math.random() - 0.45) * 30;
 
         }
 

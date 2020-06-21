@@ -118,6 +118,8 @@ const AboutMeText = styled.div`
         background-color: rgb(45,45,45);
         color: rgb(255,255,255);
         box-shadow: 2px 2px 2px 0px rgb(0,0,0);
+        position: relative;
+        z-index: 2;
     }
 
 `
