@@ -21,6 +21,7 @@ const Form = styled.form`
     flex-direction: column;
     
     padding-top: 20px;
+    margin-top: 40px;
     text-align: left;
 
     label {
@@ -34,6 +35,10 @@ const Form = styled.form`
             cursor: pointer;
         }
     }
+    padding: 20px;
+    background-color: rgb(45,45,45);
+    border-radius: 10px;
+    height: fit-content;
 `;
 
 const GameContainer = styled.div`
@@ -62,6 +67,7 @@ const BoardCol = styled.div`
     flex-direction: column;
     width: 60vw;
     height: 100%;
+    
 `;
 
 const Label = styled.label`
