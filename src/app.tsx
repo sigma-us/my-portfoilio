@@ -39,7 +39,7 @@ const PostContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    background-color: ${DarkBackGroundColor};
+    background-color: rgba(30,33,40, 1);
     height: fit-content;
     padding: 60px 0px 60px 0px;
     border: none;
@@ -68,7 +68,7 @@ const Post = styled.div`
         bottom: 0;
         border-radius: 10px;
 
-        background: linear-gradient(135deg, rgba(30, 33, 39, 0.96) 40%, rgba(42, 157, 255, 0.96) 100%);
+        background: linear-gradient(135deg, rgba(30, 33, 39, 0.96) 40%, rgba(0, 41, 93, 0.96) 100%);
     }
 
     box-shadow: 2px 2px 2px 0 rgba(0,0,0,1);
@@ -76,6 +76,10 @@ const Post = styled.div`
     &:hover {
         box-shadow: 8px 8px 8px 0 rgba(0,0,0,1);
         cursor: pointer;
+    }
+
+    &:hover div {
+        color: white;
     }
 `
 
@@ -86,9 +90,11 @@ const Title = styled.div`
     font-size: 40px;
     font-weight: 100;
     letter-spacing: 0.7px;
-    color: white;
     z-index: 2;
-`
+    color: rgba(255,255,255,0.8);
+    transition: all 0.5s ease;
+`;
+
 const AboutMeText = styled.div`
     position: relative;
     font-weight: 100;
