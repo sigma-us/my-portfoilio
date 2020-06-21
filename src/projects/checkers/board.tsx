@@ -39,6 +39,7 @@ const Form = styled.form`
     background-color: rgb(45,45,45);
     border-radius: 10px;
     height: fit-content;
+    box-shadow: 8px 8px 16px 0px rgba(0,0,0,1);
 `;
 
 const GameContainer = styled.div`
