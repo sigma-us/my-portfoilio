@@ -12,7 +12,8 @@ export default class ThreeJS extends Component<any, any> {
     }
 
     renderer = new THREE.WebGLRenderer();
-
+    info = document.createElement('div');
+    
     componentDidMount() {
         // this.buildScene();
         this.init();
@@ -23,6 +24,7 @@ export default class ThreeJS extends Component<any, any> {
 
     componentWillUnmount() {
         document.body.removeChild(this.renderer.domElement);
+        document.body.removeChild(this.info);
         window.removeEventListener("resize", this.resize);
     }
 
@@ -36,19 +38,19 @@ export default class ThreeJS extends Component<any, any> {
 
     init = () => {
         // info
-        let info = document.createElement('div');
-        info.style.position = 'absolute';
-        info.style.top = '30px';
-        info.style.width = '100%';
-        info.style.overflow = 'none';
-        info.style.textAlign = 'center';
-        info.style.color = '#fff';
-        info.style.fontWeight = 'bold';
-        info.style.backgroundColor = 'transparent';
-        info.style.zIndex = '1';
-        info.style.fontFamily = 'Monospace';
-        info.innerHTML = "three.js animataed line using BufferGeometry";
-        document.body.appendChild(info);
+        this.info = document.createElement('div');
+        this.info.style.position = 'absolute';
+        this.info.style.top = '30px';
+        this.info.style.width = '100%';
+        this.info.style.overflow = 'none';
+        this.info.style.textAlign = 'center';
+        this.info.style.color = '#fff';
+        this.info.style.fontWeight = 'bold';
+        this.info.style.backgroundColor = 'transparent';
+        this.info.style.zIndex = '1';
+        this.info.style.fontFamily = 'Monospace';
+        this.info.innerHTML = "three.js animataed line using BufferGeometry";
+        document.body.appendChild(this.info);
 
         // renderer
         this.renderer.setPixelRatio(window.devicePixelRatio);
