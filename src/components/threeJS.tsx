@@ -28,7 +28,9 @@ export default class ThreeJS extends Component<any, any> {
         window.removeEventListener("resize", this.resize);
     }
 
-    resize = () => {
+    resize() {
+        document.body.removeChild(this.renderer.domElement);
+        document.body.removeChild(this.info);
         this.init();
         this.animate();
     }
