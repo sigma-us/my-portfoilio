@@ -93,7 +93,7 @@ export default class ThreeJS extends Component<any, any> {
         let arr = [1, 1, 2];
         let i = 2;
 
-        while (i < 300) {
+        while (i < 600) {
             arr[i] = arr[i-2] + arr[i-1];
             i++;
         }
