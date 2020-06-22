@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import * as THREE from 'three';
+import Vector from '../helpers/vectors';
 
-let scene: THREE.Scene, camera: THREE.PerspectiveCamera;
+let scene: THREE.Scene;
 let line: any;
 const MAX_POINTS = 600;
 let drawCount: number;
@@ -13,6 +14,8 @@ export default class ThreeJS extends Component<any, any> {
 
     renderer = new THREE.WebGLRenderer();
     info = document.createElement('div');
+    camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
+    zoom = 1; inc = 0.00005;
     
     componentDidMount() {
         // this.buildScene();
@@ -50,7 +53,7 @@ export default class ThreeJS extends Component<any, any> {
         this.info.style.backgroundColor = 'transparent';
         this.info.style.zIndex = '1';
         this.info.style.fontFamily = 'Monospace';
-        this.info.innerHTML = "three.js animataed line using BufferGeometry";
+        this.info.innerHTML = "three.js animated fibonacci sequence using BufferGeometry";
         document.body.appendChild(this.info);
 
         // renderer
@@ -62,8 +65,7 @@ export default class ThreeJS extends Component<any, any> {
         scene = new THREE.Scene();
 
         // camera
-        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
-        camera.position.set(0, 0, 1000);
+        this.camera.position.set(0, 0, 2000);
 
         // geometry
         var geometry = new THREE.BufferGeometry();
@@ -87,23 +89,33 @@ export default class ThreeJS extends Component<any, any> {
         this.updatePositions();
     }
 
+    fibonacci(): number[] {
+        let arr = [1, 1, 2];
+        let i = 2;
+
+        while (i < 300) {
+            arr[i] = arr[i-2] + arr[i-1];
+            i++;
+        }
+
+        return arr;
+    }
+
     // update positions
     updatePositions = () => {
-
+        let vectorHelper = new Vector();
         let positions = line.geometry.attributes.position.array;
-
-        let x = 0, y = 0, z = 0, index = 0;
+        let current = vectorHelper.convert(0, 0);
+        let index = 0;
+        let fib = this.fibonacci();
+        let rotationMap = [0, 90, 180, 270];
 
         for (var i = 0, l = MAX_POINTS; i < l; i++) {
+            current = vectorHelper.vectorAdd(current, vectorHelper.convert(rotationMap[i%4], fib[i]))
 
-            positions[index++] = x;
-            positions[index++] = y;
-            positions[index++] = z;
-
-            x += (Math.random() - 0.5) * 30;
-            y += (Math.random() - 0.5) * 30;
-            z += (Math.random() - 0.45) * 30;
-
+            positions[index++] = current[0];
+            positions[index++] = current[1];
+            positions[index++] = 1;
         }
 
     }
@@ -111,7 +123,7 @@ export default class ThreeJS extends Component<any, any> {
     // render
     render2 = () => {
 
-        this.renderer.render(scene, camera);
+        this.renderer.render(scene, this.camera);
 
     }
 
@@ -136,8 +148,14 @@ export default class ThreeJS extends Component<any, any> {
 
         }
 
-        this.render2();
 
+        this.camera.fov = this.camera.fov * this.zoom;
+        this.camera.updateProjectionMatrix();
+        this.zoom += this.inc;
+
+        this.camera.rotateZ(0.1);
+
+        this.render2();
     }
 
 
