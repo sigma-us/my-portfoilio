@@ -52,7 +52,7 @@ html {
   margin: 5px;
   cursor: pointer;
   transition: all 1000ms linear;
-  opacity: 0.7;
+  opacity: 0.85;
   /* transform: translate3d(50px, 50px, 0px); */
 }
 
