@@ -15,7 +15,7 @@ export default class ThreeJS extends Component<any, any> {
     renderer = new THREE.WebGLRenderer();
     info = document.createElement('div');
     camera = new THREE.PerspectiveCamera(0, window.innerWidth / window.innerHeight, 1, 10000);
-    zoom = 1; inc = 0.001;
+    zoom = 1; inc = 0.00001;
     
     componentDidMount() {
         // this.buildScene();
