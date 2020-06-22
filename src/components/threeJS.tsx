@@ -14,8 +14,8 @@ export default class ThreeJS extends Component<any, any> {
 
     renderer = new THREE.WebGLRenderer();
     info = document.createElement('div');
-    camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
-    zoom = 1; inc = 0.00005;
+    camera = new THREE.PerspectiveCamera(0, window.innerWidth / window.innerHeight, 1, 10000);
+    zoom = 1; inc = 0.001;
     
     componentDidMount() {
         // this.buildScene();
@@ -111,20 +111,18 @@ export default class ThreeJS extends Component<any, any> {
         let rotationMap = [0, 90, 180, 270];
 
         for (var i = 0, l = MAX_POINTS; i < l; i++) {
-            current = vectorHelper.vectorAdd(current, vectorHelper.convert(rotationMap[i%4], fib[i]))
-
             positions[index++] = current[0];
             positions[index++] = current[1];
             positions[index++] = 1;
+
+            current = vectorHelper.vectorAdd(current, vectorHelper.convert(rotationMap[i%4], fib[i]))
         }
 
     }
 
     // render
     render2 = () => {
-
         this.renderer.render(scene, this.camera);
-
     }
 
     // animate
@@ -149,11 +147,11 @@ export default class ThreeJS extends Component<any, any> {
         }
 
 
-        this.camera.fov = this.camera.fov * this.zoom;
+        this.camera.fov = this.camera.fov + this.zoom;
         this.camera.updateProjectionMatrix();
         this.zoom += this.inc;
 
-        this.camera.rotateZ(0.1);
+        this.camera.rotateZ(0.01);
 
         this.render2();
     }
