@@ -64,9 +64,9 @@ const MobileMenu = styled.div`
     top: 0px;
     right: 0px;
     width: 0px;
-    height: 100vh;
+    height: 0vh;
     background-color: rgba(95, 95, 95, 0.8);
-    transition: width 0.2s ease-in-out, background-color 0.2s linear, visibility 0.2s linear, font-size 0.2s ease-in-out;
+    transition: width 0.2s ease-in-out, background-color 0.2s linear, visibility 0.2s linear, font-size 0.2s ease-in-out, height 200ms ease-in-out;
     // transition: all 500ms ease;
     display: flex;
     flex-direction: column;
@@ -85,6 +85,7 @@ const MobileMenu = styled.div`
         }
 
         width: 101%;
+        height: 100vh;
         background-color: rgba(75, 75, 75, 1);
         visibility: visible;
         a {
