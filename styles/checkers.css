@@ -30,15 +30,10 @@ html {
 
 
 
-
-.row {
-  height: 60px;
-}
-
 .square {
   display: inline-block;
-  width: 60px;
-  height: 60px;
+  width: 100px;
+  height: 100px;
 }
 
 .old-lace {
@@ -51,13 +46,14 @@ html {
 
 
 .checker {
-  width: 50px;
-  height: 50px;
+  width: 90px;
+  height: 90px;
   border-radius: 100%;
   margin: 5px;
   cursor: pointer;
-  transition: all 1s ease;
+  transition: all 1000ms linear;
   opacity: 0.7;
+  /* transform: translate3d(50px, 50px, 0px); */
 }
 
 .selected .checker {
@@ -66,11 +62,11 @@ html {
 }
 
 .square-piece {
-  border-radius: 0;
+  border-radius: 2px;
 }
 
 .oval-piece {
-  width: 30px;
+  width: 70px;
   margin-left: 15px;
 }
 
@@ -108,15 +104,15 @@ html {
 
 .suggested {
   border: solid 2px lightskyblue;
-  width: 56px;
-  height: 56px;
+  width: 96px;
+  height: 96px;
   cursor: pointer;
 }
 
 .selected {
   border: solid 3px yellow;
-  width: 54px;
-  height: 54px;
+  width: 94px;
+  height: 94px;
 }
 
 

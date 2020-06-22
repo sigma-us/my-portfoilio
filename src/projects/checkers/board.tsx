@@ -17,6 +17,9 @@ const PLAYERS = {
 } as any;
 
 const Form = styled.form`
+    // position: fixed;
+    // top: 60px;
+    // left: 40px;
     display: flex;
     flex-direction: column;
     
