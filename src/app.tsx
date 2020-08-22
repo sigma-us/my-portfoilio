@@ -186,9 +186,11 @@ class App extends Component<any, any> {
                 <AboutMeText>
                     <div>
                         {`I have 3+ years experience in Full-Stack Web Development and Cloud Architecture. I have been using AWS since the beginning and
-                        love to design and build custom solutions to solve problems in the most cost-efficient way possible without sacrificing performance.
-                        I have predominantly used Node.js over past 3 years however I am language agnostic and exploring Golang and C++. This website is being
-                        hosted on AWS CloudFront with Route 53 for decreased latency and increased availability.`}
+                        love to design and build custom solutions to solve problems in the most cost-efficient way possible without sacrificing performance. (Since building 
+                        this site I have come to discover that many frontend javascript frameworks are a bit overkill for many use cases, SSR appears to be ideal for SEO as well as initial page rendering.
+                        For businesses and individuals that wish to design for scale I would recommend a blend of SSR with minimal frontend javascript). This website is being
+                        hosted on AWS CloudFront with Route 53 for decreased latency and increased availability. There is much I can do to optimize the performance of this website. I am blessed to have an 
+                        employer to keep me busy during these times, so this page will remain as it is for now. I will slowly optimize this site as time permits.`}
                     </div>
                 </AboutMeText>
             </AppC>
