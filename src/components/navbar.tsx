@@ -35,7 +35,7 @@ const MobileNav = styled.div`
     right: 0px;
     // bottom: 0px;
     z-index: 999;
-    height: 96px;
+    height: 60px;
     color: black;
     background: white;
     font-size: 96px;
@@ -51,6 +51,7 @@ const MobileNav = styled.div`
 
     div, i {
         padding: 16px;
+        font-size: 36px;
     }
 
     i:hover {
@@ -72,24 +73,24 @@ const MobileMenu = styled.div`
     flex-direction: column;
     align-items: flex-end;
     justify-content: flex-start;
-    font-size: 9em;
+    font-size: 36px;
     visibility: hidden;
 
     
 
     &.visible {
         i {
-            font-size: 96px;
-            height: 96px;
-
+            font-size: 36px;
+            height: 36px;
         }
 
-        width: 101%;
+        width: 100%;
         height: 100vh;
         background-color: rgba(75, 75, 75, 1);
         visibility: visible;
+
         a {
-            padding: 32px 32px 32px 0px !important;;
+            padding: 16px 24px 16px 0px !important;
         }
         
     }
@@ -112,7 +113,7 @@ const MobileMenu = styled.div`
         color: black;
         font-size: 0px;
         text-align: right;
-        padding: 16px;
+        padding: 16px 24px 16px 16px;
         transition: all 100ms ease;
     }
     a {
