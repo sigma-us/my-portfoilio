@@ -175,7 +175,7 @@ export default class NavBar extends Component<NavProps, any> {
     componentDidMount() {
         window.addEventListener('scroll', this.listenToScroll);
         window.addEventListener('resize', this.resizeListener);
-        if (Math.abs(window.innerWidth) < 700) {
+        if (Math.abs(window.innerWidth) < 991) {
             this.setState({
                 mobileNav: true
             })
