@@ -5,8 +5,7 @@ import styled from 'styled-components';
 
 
 const AppC = styled.div`
-    position: relative;
-    // top 62px;
+    width: 100%
 
 `
 const DarkBackGroundColor = 'rgb(30, 33, 39)';
@@ -41,6 +40,7 @@ const PostContainer = styled.div`
     justify-content: center;
     background-color: rgba(30,33,40, 1);
     height: fit-content;
+    width: 100%;
     padding: 60px 0px 60px 0px;
     border: none;
     z-index: 2;
@@ -56,6 +56,11 @@ const Post = styled.div`
     background-image: ${params => params.title ? `url("../images/${params.title}.png")` : `url("../images/${params.title}.png")`};
     background-position: center center;
     background-size: cover;
+
+    @media(max-width: 991px) {
+        width: 300px;
+        height: 150px;
+    }
 
     transition: all 0.3s ease;
     
@@ -93,6 +98,10 @@ const Title = styled.div`
     z-index: 2;
     color: rgba(255,255,255,0.8);
     transition: all 0.5s ease;
+
+    @media(max-width: 991px) {
+        font-size: 24px;
+    }
 `;
 
 const AboutMeText = styled.div`
@@ -109,6 +118,7 @@ const AboutMeText = styled.div`
     background-color: rgb(30,33,40);
     z-index: 4;
 
+    
     div {
         width: 800px;
         height: fit-content;
@@ -118,6 +128,15 @@ const AboutMeText = styled.div`
         background-color: rgb(45,45,45);
         color: rgb(255,255,255);
         box-shadow: 2px 2px 2px 0px rgb(0,0,0);
+    }
+    @media(max-width: 991px) {
+        font-size: 16px;
+        line-height: 22px;
+        padding: 24px;
+
+        div {
+            padding: 16px;
+        }
     }
 
 `
@@ -135,6 +154,11 @@ const AboutMeHeading = styled.div`
     font-weight: 200;
     letter-spacing: 0.7px;
     z-index: 2;
+
+    @media(max-width: 991px) {
+        font-size: 48px;
+        height: 80px;
+    }
 `
 
 const linkStyle = {

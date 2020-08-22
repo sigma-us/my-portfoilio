@@ -29,7 +29,7 @@ const Navbar = styled.div`
 const MobileNav = styled.div`
     position: fixed;
     display: flex;
-    width: 100vw;
+    width: 100%;
     align-items: center;
     justify-content: space-between;
     right: 0px;
@@ -65,7 +65,7 @@ const MobileMenu = styled.div`
     top: 0px;
     right: 0px;
     width: 0px;
-    height: 0vh;
+    height: 0%;
     background-color: rgba(95, 95, 95, 0.8);
     transition: width 0.1s ease, background-color 0.1s ease, visibility 0.1s ease, font-size 0.1s ease, height 100ms ease;
     // transition: all 500ms ease;
@@ -85,7 +85,7 @@ const MobileMenu = styled.div`
         }
 
         width: 100%;
-        height: 100vh;
+        height: 100%;
         background-color: rgba(75, 75, 75, 1);
         visibility: visible;
 
