@@ -29,15 +29,21 @@ html {
 }
 
 
-
 .square {
   display: inline-block;
   width: 100px;
   height: 100px;
 }
 
+@media(max-width: 991px) {
+  .square {
+    width: 70px;
+    height: 70px;
+  }
+}
+
 .old-lace {
-  background-color: rgb(30,33,40);
+  background-color: rgb(30, 33, 40);
 }
 
 .black {
@@ -53,7 +59,16 @@ html {
   cursor: pointer;
   transition: all 1000ms linear;
   opacity: 0.85;
+
+
   /* transform: translate3d(50px, 50px, 0px); */
+}
+
+@media(max-width: 991px) {
+  .checker {
+    width: 60px;
+    height: 60px;
+  }
 }
 
 .selected .checker {
@@ -68,6 +83,14 @@ html {
 .oval-piece {
   width: 70px;
   margin-left: 15px;
+
+}
+
+@media(max-width: 991px) {
+  .oval-piece {
+    width: 50px;
+    margin-left: 10px;
+  }
 }
 
 .selected .oval-piece {
@@ -109,10 +132,26 @@ html {
   cursor: pointer;
 }
 
+@media(max-width: 991px) {
+  .suggested {
+    border: solid 1px lightskyblue;
+    width: 68px;
+    height: 68px;
+  }
+}
+
 .selected {
   border: solid 3px yellow;
   width: 94px;
   height: 94px;
+}
+
+@media(max-width: 991px) {
+  .selected {
+    border: solid 1px yellow;
+    width: 68px;
+    height: 68px;
+  }
 }
 
 

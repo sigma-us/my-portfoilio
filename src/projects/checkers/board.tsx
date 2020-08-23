@@ -78,6 +78,11 @@ const BoardCol = styled.div`
         box-shadow: 16px 16px 8px 0 rgb(0,0,0);
         border-radius: 10px;
         border: 3px solid rgb(0,0,0);
+
+        .row {
+            display: flex;
+            flex-wrap nowrap;
+        }
       }
     
 `;
