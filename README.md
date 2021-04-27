@@ -8,7 +8,7 @@
 ----
 ## Technologies Used
 
-* Brew
+* Terraform
 * Git and Github
 * SSH
 * Bash
