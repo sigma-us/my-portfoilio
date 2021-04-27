@@ -15,6 +15,19 @@ resource "aws_s3_bucket" "portfolio_tf" {
 resource "aws_s3_bucket" "build_portfolio" {
   bucket = "build-portfolio.kconley.com"
   acl = "public-read"
+  policy = <<EOT
+{
+    "Version": "2008-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:*",
+            "Resource": "arn:aws:s3:::build-portfolio.kconley.com/*"
+        }
+    ]
+}
+EOT
 
   tags = {
     Name = "build files for portfolio"
