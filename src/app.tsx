@@ -104,42 +104,42 @@ const Title = styled.div`
     }
 `;
 
-const AboutMeText = styled.div`
-    position: relative;
-    font-weight: 100;
-    letter-spacing: 0.7px;
-    line-height: 32px;
-    padding: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px;
-    text-align: left;
-    background-color: rgb(30,33,40);
-    z-index: 4;
+// const AboutMeText = styled.div`
+//     position: relative;
+//     font-weight: 100;
+//     letter-spacing: 0.7px;
+//     line-height: 32px;
+//     padding: 80px;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     font-size: 24px;
+//     text-align: left;
+//     background-color: rgb(30,33,40);
+//     z-index: 4;
 
     
-    div {
-        width: 800px;
-        height: fit-content;
-        border: 1px solid rgb(30,33,40);
-        border-radius: 8px;
-        padding: 32px 32px 96px 32px;
-        background-color: rgb(45,45,45);
-        color: rgb(255,255,255);
-        box-shadow: 2px 2px 2px 0px rgb(0,0,0);
-    }
-    @media(max-width: 991px) {
-        font-size: 16px;
-        line-height: 22px;
-        padding: 24px;
+//     div {
+//         width: 800px;
+//         height: fit-content;
+//         border: 1px solid rgb(30,33,40);
+//         border-radius: 8px;
+//         padding: 32px 32px 96px 32px;
+//         background-color: rgb(45,45,45);
+//         color: rgb(255,255,255);
+//         box-shadow: 2px 2px 2px 0px rgb(0,0,0);
+//     }
+//     @media(max-width: 991px) {
+//         font-size: 16px;
+//         line-height: 22px;
+//         padding: 24px;
 
-        div {
-            padding: 16px;
-        }
-    }
+//         div {
+//             padding: 16px;
+//         }
+//     }
 
-`
+// `
 
 const AboutMeHeading = styled.div`
     position: relative;
@@ -204,10 +204,10 @@ class App extends Component<any, any> {
                 </PostContainer>
 
                 <AboutMeHeading>
-                    About Me
+                    {/* About Me */}
                 </AboutMeHeading>
 
-                <AboutMeText>
+                {/* <AboutMeText>
                     <div>
                         {`I have 3+ years experience in Full-Stack Web Development and Cloud Architecture. I have been using AWS since the beginning and
                         love to design and build custom solutions to solve problems in the most cost-efficient way possible without sacrificing performance. (Since building 
@@ -216,7 +216,7 @@ class App extends Component<any, any> {
                         hosted on AWS CloudFront with Route 53 for decreased latency and increased availability. There is much I can do to optimize the performance of this website. I am blessed to have an 
                         employer to keep me busy during these times, so this page will remain as it is for now. I will slowly optimize this site as time permits.`}
                     </div>
-                </AboutMeText>
+                </AboutMeText> */}
             </AppC>
         )
     }
