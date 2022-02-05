@@ -204,6 +204,12 @@ Resources:
       TopicArn: !Ref DeployPortfolioTopic
       Endpoint: !Ref SNSEndpoint
 
+  CodestarConnection:
+    Type: AWS::CodeStarConnections::Connection
+    Properties: 
+      ConnectionName: portfolio-codebuild
+      ProviderType: GitHub
+
   # WIP
   PortfolioPipeline:
     Type: AWS::CodePipeline::Pipeline
@@ -221,15 +227,19 @@ Resources:
               OutputArtifacts: 
                 - Name: !Ref AWS::StackName
               Configuration:
-                Owner: !Ref GitHubUserName
-                Repo: !Ref AWS::StackName
-                PollForSourceChanges: 'false'
-                Branch: master
-                OAuthToken: !Ref GitHubToken
+                ConnectionArn: !Ref CodestarConnection
+                FullRepositoryId: "sigma-us/my-portfolio"
+                BranchName: "master"
+                OutputArtifactFormat: "CODE_ZIP"
+                # Owner: !Ref GitHubUserName
+                # Repo: !Ref AWS::StackName
+                # PollForSourceChanges: 'false'
+                # Branch: master
+                # OAuthToken: !Ref GitHubToken
               ActionTypeId:
                 Category: Source
-                Owner: ThirdParty
-                Provider: GitHub
+                Owner: AWS
+                Provider: CodeStarSourceConnection
                 Version: 1
         - Name: Build
           Actions:
@@ -261,18 +271,18 @@ Resources:
                 Version: 1
 
 
-  PortfolioPipelineWebhook:
-    Type: AWS::CodePipeline::Webhook
-    Properties:
-      Name: !Sub ${AWS::StackName}_pipeline-webhook
-      Filters:
-        - JsonPath: $.ref
-      Authentication: GITHUB_HMAC
-      TargetPipeline: !Ref PortfolioPipeline
-      TargetAction: Source
-      TargetPipelineVersion: 1
-      AuthenticationConfiguration:
-        SecretToken: !Ref GitHubToken
+  # PortfolioPipelineWebhook:
+  #   Type: AWS::CodePipeline::Webhook
+  #   Properties:
+  #     Name: !Sub ${AWS::StackName}_pipeline-webhook
+  #     Filters:
+  #       - JsonPath: $.ref
+  #     Authentication: GITHUB_HMAC
+  #     TargetPipeline: !Ref PortfolioPipeline
+  #     TargetAction: Source
+  #     TargetPipelineVersion: 1
+  #     AuthenticationConfiguration:
+  #       SecretToken: !Ref GitHubToken
 
   # WIP
   StackRole:
@@ -324,3 +334,9 @@ Resources:
               - Effect: Allow
                 Resource: "*"
                 Action: "codepipeline:PutJobSuccessResult"
+              - Effect: Allow
+                Resource: !Ref CodestarConnection
+                Action: "codestar-connections:UseConnection"
+
+
+
