@@ -226,7 +226,7 @@ export default class NavBar extends Component<NavProps, any> {
 
     render() {
 
-        if (this.state.mobileNav == false) {
+        if (this.state.mobileNav === false) {
             // if (true) {
 
             return (
@@ -248,6 +248,7 @@ export default class NavBar extends Component<NavProps, any> {
                         })}
                         <a className="color--skyBlue social"
                             title="LinkedIn Profile"
+                            rel="noopener noreferrer"
                             target="_blank"
                             style={linkStyle}
                             href="https://linkedin.com/in/kyle-conley">
@@ -256,6 +257,7 @@ export default class NavBar extends Component<NavProps, any> {
 
                         <a className="social color--skyBlue"
                             title="GitHub Profile"
+                            rel="noopener noreferrer"
                             target="_blank"
                             style={linkStyle}
                             href="https://github.com/sigma-us">
