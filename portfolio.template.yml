@@ -111,6 +111,7 @@ Resources:
   PortfolioCodeBuild:
     Type: AWS::CodeBuild::Project
     Properties:
+      BadgeEnabled: true
       Name: !Sub ${DomainPrefix}_build
       ServiceRole: !GetAtt StackRole.Arn
       Artifacts:
