@@ -111,7 +111,7 @@ Resources:
   PortfolioCodeBuild:
     Type: AWS::CodeBuild::Project
     Properties:
-      BadgeEnabled: true
+      BadgeEnabled: false # does not work when codebuild is in codepipeline...
       Name: !Sub ${DomainPrefix}_build
       ServiceRole: !GetAtt StackRole.Arn
       Artifacts:

@@ -1,7 +1,5 @@
 # my-portfolio
 
-![](https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiL1ZJSHpCcnRDczg3d2I5RzEzQlk4SXFLM21kSEQwUDhacWhMMzMwZzM2V25lSWdJWjBKRkF2aHV0UHQ5SVJCb25DQmRvMVcrY1c3VTA5VWpPYXR6U1lJPSIsIml2UGFyYW1ldGVyU3BlYyI6ImExZXgydTJ5eWJZKzJ3QmkiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)
-
 * [Main Portfolio](https://portfolio.kconley.com)
 * [React Checkers With Typescript](https://portfolio.kconley.com/checkers) 
 * JS react checkers repo [here](https://github.com/sigma-us/react-checkers)
