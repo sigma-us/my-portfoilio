@@ -74,7 +74,7 @@ ReactDOM.render(
                         <ThreeJS></ThreeJS>
                     </Route>
                     {/* Not Found */}
-                    <Route route="*" component={() => <Redirect to="/" />} />
+                    <Route path="*" component={() => <Redirect to="/" />} />
                 </Switch>
             {/* </ScrollToTop> */}
     </Router>
