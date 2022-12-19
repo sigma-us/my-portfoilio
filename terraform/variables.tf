@@ -5,7 +5,7 @@ variable "aws_region" {
 
 variable "aws_profile" {
   description = "AWS Profile"
-  default     = "personal"
+  default     = "default"
 }
 
 variable "environment" {
