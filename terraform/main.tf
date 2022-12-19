@@ -4,7 +4,7 @@ terraform {
     key      = "production/terraform.tfstate"
     region   = "us-east-1"
     acl      = "bucket-owner-full-control"
-    profile  = "personal"
+    profile  = "default"
   }
 }
 
