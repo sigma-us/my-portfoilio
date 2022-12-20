@@ -1,24 +1,14 @@
-resource "aws_s3_bucket" "portfolio_tf" {
-  bucket = "portfolio-tf"
 
-  tags = {
-    Name = "terraform state portfolio"
-    Environment = var.environment
-  }
+module portfolio_tf_state_bucket {
+  source = "./modules/s3"
+  bucket_name = "portfolio-tf"
+  environment = var.environment
+  description = "portfolio terraform state bucket"
+  acl = "private"
+  block_public = true
+  versioning = "Enabled"
 }
 
-resource "aws_s3_bucket_acl" "portfolio_tf" {
-  bucket = aws_s3_bucket.portfolio_tf.id
-  acl    = "private"
-}
-
-resource "aws_s3_bucket_versioning" "portfolio_tf" {
-  bucket = aws_s3_bucket.portfolio_tf.id
-
-  versioning_configuration {
-    status = "Enabled"
-  }
-}
 
 
 

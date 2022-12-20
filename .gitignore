@@ -112,6 +112,8 @@ dist
 portfolio.params.json
 build
 .DS_Store
-package-lock.json
+# package-lock.json
 .awcache
 vision.md
+
+*.tfstate.backup
