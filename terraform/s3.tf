@@ -1,16 +1,26 @@
 resource "aws_s3_bucket" "portfolio_tf" {
   bucket = "portfolio-tf"
-  acl = "private"
 
   tags = {
     Name = "terraform state portfolio"
     Environment = var.environment
   }
+}
 
-  versioning {
-    enabled = true
+resource "aws_s3_bucket_acl" "portfolio_tf" {
+  bucket = aws_s3_bucket.portfolio_tf.id
+  acl    = "private"
+}
+
+resource "aws_s3_bucket_versioning" "portfolio_tf" {
+  bucket = aws_s3_bucket.portfolio_tf.id
+
+  versioning_configuration {
+    status = "Enabled"
   }
 }
+
+
 
 resource "aws_s3_bucket" "build_portfolio" {
   bucket = "build-portfolio.kconley.com"
