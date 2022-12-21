@@ -27,8 +27,7 @@ jobs:
     description: |
       - Runs NPM commands and better description goes here.
     docker:
-      - image: node:lts
-    
+      - image: circleci/node:latest
     steps:
       - checkout
       - run:
