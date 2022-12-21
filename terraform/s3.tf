@@ -38,10 +38,17 @@ EOT
     enabled = false
   }
 
-  website {
-    index_document = "index.html"
-  }
 }
+
+resource "aws_s3_bucket_public_access_block" "build_portfolio" {
+  bucket = "build-portfolio.kconley.com"
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
 
 resource "aws_s3_bucket" "portfolio" {
   bucket = "portfolio.kconley.com"
@@ -99,17 +106,20 @@ resource "aws_s3_bucket" "checkers" {
   }
 }
 
+
 resource "aws_s3_bucket" "lambda_code" {
   bucket = "kyle-lambda-code"
-  acl = "private"
-
 
   tags = {
     Name = "code for lambda functions"
     Environment = var.environment
   }
+}
 
-  versioning {
-    enabled = false
-  }
+module lambda_code_bucket {
+  source = "./modules/s3_upgrade"
+  bucket_name = "kyle-lambda-code"
+  acl = "private"
+  versioning = "Disabled"
+  block_public = true
 }
