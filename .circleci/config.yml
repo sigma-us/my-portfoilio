@@ -2,7 +2,7 @@ version: 2.1
 
 anchors:
   context: &context
-    context: qslack-notify
+    context: slack-notify
 
 
 orbs:
