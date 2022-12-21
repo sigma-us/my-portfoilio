@@ -7,6 +7,7 @@ anchors:
 
 orbs:
   slack: circleci/slack@4.3.0
+  node: circleci/node
 
 commands:
   notify_slack_error:
@@ -26,8 +27,9 @@ jobs:
   build-assets:
     description: |
       - Runs NPM commands and better description goes here.
-    docker:
-      - image: circleci/node:latest
+    # docker:
+    #   - image: circleci/node:latest
+    executor: node/default
     steps:
       - checkout
       - run:
