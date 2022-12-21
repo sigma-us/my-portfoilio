@@ -1,6 +1,8 @@
 version: 2.1
 
-# anchors:
+anchors:
+  context: &context
+    context: qslack-notify
 
 
 orbs:
@@ -26,6 +28,7 @@ jobs:
       - Runs NPM commands and better description goes here.
     docker:
       - image: node:lts
+    
     steps:
       - checkout
       - run:
@@ -46,6 +49,7 @@ jobs:
 workflows:
   build_deploy_stage:
     jobs:
-      - build-assets
+      - build-assets:
+          <<: *context
   
 # VS Code Extension Version: 1.4.0
