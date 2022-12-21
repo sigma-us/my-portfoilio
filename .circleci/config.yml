@@ -1,13 +1,51 @@
 version: 2.1
 
-anchors:
+# anchors:
 
 
 orbs:
+  slack: circleci/slack@4.3.0
+
+commands:
+  notify_slack_error:
+    steps:
+      - slack/notify:
+          event: fail
+          template: basic_fail_1
+
+  notify_slack_pass:
+    steps:
+      - slack/notify:
+          event: pass
+          template: basic_success_1
 
 
 jobs:
+  build-assets:
+    description: |
+      - Runs NPM commands and better description goes here.
+    docker:
+      - image: node:lts
+    steps:
+      - checkout
+      - run:
+          command: npm install
+          name: install packages
+      - run:
+          command: npm run webpack-prod
+          name: build static website assets
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - .
+      - notify_slack_error
+      - notify_slack_pass
+    
 
 
 workflows:
+  build_deploy_stage:
+    jobs:
+      - build-assets
   
+# VS Code Extension Version: 1.4.0
