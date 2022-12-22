@@ -38,7 +38,7 @@ jobs:
     steps:
       - checkout
       - run:
-          command: npm install
+          command: echo $NODE_ENV && npm install
           name: install packages
       - run:
           command: npm run webpack-prod
