@@ -1,13 +1,18 @@
 version: 2.1
 
 anchors:
+
   context: &context
     context: slack-notify
 
+  filter_stage: &filter_stage
+    filters:
+      branches:
+        only: ci-test
+
 
 orbs:
-  slack: circleci/slack@4.3.0
-  node: circleci/node
+  slack: circleci/slack@4.12.0
 
 commands:
   notify_slack_error:
@@ -27,9 +32,8 @@ jobs:
   build-assets:
     description: |
       - Runs NPM commands and better description goes here.
-    # docker:
-    #   - image: circleci/node:latest
-    executor: node/default
+    docker:
+      - image: cimg/node:18.12.1
     steps:
       - checkout
       - run:
@@ -52,5 +56,6 @@ workflows:
     jobs:
       - build-assets:
           <<: *context
+          <<: *filter_stage
   
 # VS Code Extension Version: 1.4.0
