@@ -59,4 +59,4 @@ workflows:
           <<: *context
           <<: *filter_stage
   
-# VS Code Extension Version: 1.4.0
+# VS Code Extension Version: 1.5.1
